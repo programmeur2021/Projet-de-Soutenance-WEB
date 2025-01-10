@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %} GESTION DES ENFANTS ORPHELIN {% endblock  %}
+
+{% block titre_cadre %} ENREGISTRER UN ORPHELIN {% endblock titre_cadre %}
+
+{% block formulaire %}
+
+<form action = "" method="POST" class="form-horizontal" enctype="multipart/form-data">
+    {% csrf_token %}
+   <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.nom_enf | as_crispy_field}}
+        </div>		
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.prenom_enf | as_crispy_field}}
+        </div>		
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.date_admission | as_crispy_field}}
+        </div>		
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.sexe_enf | as_crispy_field}}
+        </div>		
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.statut_enf | as_crispy_field}}
+        </div>		
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.photo_enf | as_crispy_field}}
+        </div>		
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.date_naissance | as_crispy_field}}
+        </div>		
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.profession_enf | as_crispy_field}}
+        </div>		
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.lieu_naissance | as_crispy_field}}
+        </div>		
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.pere_enf | as_crispy_field}}
+        </div>		
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.mere_enf | as_crispy_field}}
+        </div>		
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            {{form.id_centre | as_crispy_field}}
+        </div>		
+    </div>
+
+   </div>
+
+    <div class="form-group">
+        <div class="text-center">
+            <button type="submit" class="btn btn-success bt-sm">Enregistrer &nbsp;<i class="fa-solid fa-save"></i></button>
+            <button type="reset" class="btn btn-warning bt-sm">Annuler &nbsp;<i class="fa-solid fa-refresh"></i></button>
+            <a href="{% url 'listeEnfant' %}" class="btn btn-info bt-sm">Voir Liste &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+</form>
+
+
+{% endblock %}
+

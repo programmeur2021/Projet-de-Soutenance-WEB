@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block titre_page %} AFFICHAGE DES CAISSE {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UNE CAISSE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationCaisse' editer.id %}" method="POST" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_caisse">ID de la Caisse</label>
+				<input type="text" id="id_caisse" class="form-control" name="id_caisse" value="{{editer.id}}" readonly title="Identifiant de la Caisse">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="type_operation">Le type de l'opération</label>
+				<input type="text" id="type_operation" class="form-control" name="type_operations" value="{{editer.type_operation}}" title="Le type d'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="description_operation">Description de l'opération</label>
+				<input type="text" id="description_operation" class="form-control" name="description" value="{{editer.description_operation}}" title="La description de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="montant_operation">Montant de l'opération</label>
+				<input type="text" id="montant_operation" class="form-control" name="montant_oper" value="{{editer.montant_operation}}" title="Le Montant de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_operation">Date Opération</label>
+				<input type="text" id="date_operation" class="form-control" name="date_operation" value="{{editer.date_operation|date:'Y-n-j'}}" title="La date de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Centre </label>
+				<input type="text" id="id_centre" class="form-control" name="id_centres" value="{{editer.id_centre.raison_sociale}}" title="Centre" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre_contact1">Contact 1 </label>
+				<input type="text" id="id_centre_contact1" class="form-control" name="id_centre_contact1" value="{{editer.id_centre.contact1}}" title="Le Contact 1 du Centre" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre_email">E-mail </label>
+				<input type="text" id="id_centre_email" class="form-control" name="id_centre_email" value="{{editer.id_centre.email}}" title="E-mail du Centre" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre_email">Id Centre</label>
+				<input type="text" id="id_centre_id" class="form-control" name="id_centre_id" value="{{editer.id_centre.id}}" title="Identifiant du Centre" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<button type="submit" class="btn btn-secondary btn-lg" title="Modification de la caisse">Modifier &nbsp;<i class="fa-solid fa-edit"></i> </button>
+				<a href="{% url 'listeCaisse' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block titre_page %} LISTE DES CENTRES {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES BESOINS
+
+{% endblock %}
+
+{% block formulaire %}
+
+    <table id="Id_centre" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Description</th>
+                <th>Type </th>
+                <th>Date </th>
+                <th>Centre </th>
+                <th>contact</th>
+                <th>email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in listebesoin %}
+            <tr>
+                <td width="50px">{{element.id}}</td>
+                <td width="130px">{{element.description_bes}}</td>  
+                <td width="150px">{{element.type_bes}}</td>    
+                <td width="80px">{{element.date_bes |date:'j-n-Y'}}</td>
+                <td width="80px">{{element.id_centre.raison_sociale}}</td>
+                <td width="80px">{{element.id_centre.contact1}}</td>
+                <td width="80px">{{element.id_centre.email}}</td>
+
+                <td width="200px">
+                    <a class="btn btn-primary" href="{% url 'consulterBesoin' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href=" {% url 'editerbesoin' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url  'suppressionbesoin' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listebesoin.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listebesoin.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listebesoin.number }} sur {{ listebesoin.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listebesoin.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{listebesoin.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listebesoin.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+        <div class="col-md-4"> 
+          <a href="{% url 'ajoutbesoin' %}" class="btn btn-info bt-sm" title="Nouveau besoin" target="_self">Nouveau Besoin &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+	</div>
+
+{% endblock %}

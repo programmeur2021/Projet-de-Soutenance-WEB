@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block titre_page %} AFFICHAGE DES ORPHELINS {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UN ORPHELIN
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="" method="GET" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="id_enf">ID de l'orphelin</label>
+				<input type="text" id="id_enf" class="form-control" name="id_enf" value="{{infoenfant.id}}" readonly title="Identifiant de l'orphelin">
+			</div>
+		</div>
+
+			<div class="col-md-6">
+				<div class="form-group">
+					{%if infoenfant.photo_enf %}
+					<img src="{{infoenfant.photo_enf.url}}" width="20%" height="20%" alt="">
+					{%else %}
+					<label for="">Photo indisponible</label>
+					{%endif %}
+				</div>
+			</div>
+
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="nom_enf">Nom de l'enfant</label>
+				<input type="text" id="nom_enf" class="form-control" name="nom_enf" value="{{infoenfant.nom_enf}}" readonly title="Le nom de l'orphelin">
+			</div>		
+		</div>	
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="prenom_enf">Prénom de l'enfant</label>
+				<input type="text" id="prenom_enf" class="form-control" name="prenom_enf" value="{{infoenfant.prenom_enf}}" readonly title="Prénom de l'orphenlin">
+			</div>		
+		</div>
+	</div>
+
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="date_admission">Date Admission</label>
+				<input type="text" id="date_admission" class="form-control" name="date_admission" value="{{infoenfant.date_admission}}" readonly title="Date d'admission">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="sexe_enf">Sexe de l'enfant</label>
+				<input type="text" id="sexe_enf" class="form-control" name="sexe_enf" value="{{infoenfant.sexe_enf}}" readonly title="Le sexe de l'enfant">
+			</div>		
+		</div>	
+
+	</div>
+
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="statut_enf">Statut de l'enfant</label>
+				<input type="text" id="statut_enf" class="form-control" name="statut_enf" value="{{infoenfant.statut_enf}}" readonly title="La localisation du Centre">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="date_naissance">Date de Naissance</label>
+				<input type="text" id="date_naissance" class="form-control" name="date_naissance" value="{{infoenfant.date_naissance}}" readonly title="La Date de Naissance">
+			</div>		
+		</div>	
+
+	</div>
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="profession_enf">Profession de l'enfant</label>
+				<input type="text" id="profession_enf" class="form-control" name="profession_enf" value="{{infoenfant.profession_enf}}" readonly title="La Profession de l'orphelin">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="lieu_naissance">Lieu de Naissance</label>
+				<input type="text" id="lieu_naissance" class="form-control" name="lieu_naissance" value="{{infoenfant.lieu_naissance}}" readonly title="Le liieu de Naissance">
+			</div>		
+		</div>
+
+	</div>
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="pere_enf">Père de l'orphelin</label>
+				<input type="text" id="pere_enf" class="form-control" name="pere_enf" value="{{infoenfant.pere_enf}}" readonly title="Le Père de l'enfant">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="mere_enf">Mère de l'enfant</label>
+				<input type="text" id="mere_enf" class="form-control" name="mere_enf" value="{{infoenfant.mere_enf}}" readonly title="La Mère de l'enfant">
+			</div>		
+		</div>
+
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Centre</label>
+				<input type="text" id="id_centre" class="form-control" name="id_centre" value="{{infoenfant.id_centre}}" readonly title="Le Centre">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<a href="{% url 'listeEnfant' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

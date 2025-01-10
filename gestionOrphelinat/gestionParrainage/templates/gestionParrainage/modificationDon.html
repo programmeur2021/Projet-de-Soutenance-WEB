@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESITION DES DONS {% endblock %}
+
+{% block titre_cadre %}
+MODIFICATION D'UN DON
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationDon' editer.id %}" method="POST" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_don">ID du Don</label>
+				<input type="text" id="id_don" class="form-control" name="id_don" value="{{editer.id}}" readonly title="Identifiant du Don">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="type_dons">Le type de Don</label>
+				<input type="text" id="type_dons" class="form-control" name="type_dons" value="{{editer.type_dons}}" title="Le type de don">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="description_don">La description du Don</label>
+				<input type="text" id="description_don" class="form-control" name="description_don" value="{{editer.description_don}}" title="La description du Don">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="montant_don">Montant du Don</label>
+				<input type="text" id="montant_don" class="form-control" name="montant_don" value="{{editer.montant_don}}" title="Le montant du Don">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Identifiant Centre </label>
+				<input type="text" id="id_centre" class="form-control" name="id_centre" value="{{editer.id_centre.id}}" title="Identifiant du Centre" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_centre">Nom du Centre </label>
+				<input type="text" id="nom_centre" class="form-control" name="nom_centre" value="{{editer.id_centre.raison_sociale}}" title="Nom du Centre" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Parrain </label>
+				<input type="text" id="id_parrain" class="form-control" name="id_parrain" value="{{editer.id_parrain.id}}" title="Parrain" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_parain">Nom du Parrain </label>
+				<input type="text" id="nom_parain" class="form-control" name="nom_parain" value="{{editer.id_parrain.nom_par}}" title="Nom du Parrain" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row"> <!--Début de la balise de la ligne pour les boutons -->
+		<div class="col-md-6">
+			<div class="form-group">
+				<button type="submit" class="btn btn-info bt-sm">Modifier &nbsp;<i class="fa-solid fa-edit"></i></button>
+			</div>		
+		</div>	<!-- Fin de la balise pour la colonne -->
+
+		<div class="col-md-6">
+			<div class="form-group">
+				<a href="{% url 'listeDon' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	<!-- Fin de la balise pour la colonne -->
+	</div> <!-- Fin de la balise de la ligne pour les boutons -->
+</form>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES DONS {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UN DON
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="" method="GET" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_don">ID du Don</label>
+				<input type="text" id="id_don" class="form-control" name="id_don" value="{{infoDon.id}}" readonly title="Identifiant du Don">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="type_dons">Le type de Don</label>
+				<input type="text" id="type_dons" class="form-control" name="type_dons" value="{{infoDon.type_dons}}" readonly title="Le type du Don">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_don">Date du Don</label>
+				<input type="text" id="date_don" class="form-control" name="date_don" value="{{infoDon.date_don}}" readonly title="La date du Don">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="description_don">Description du Don</label>
+				<input type="text" id="description_don" class="form-control" name="description_don" value="{{infoDon.description_don}}" readonly title="La description du don">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="montant_don">Montant du Don</label>
+				<input type="text" id="montant_don" class="form-control" name="montant_don" value="{{infoDon.montant_don}}" readonly title="Le montant du Don">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Centre </label>
+				<input type="text" id="id_centre" class="form-control" name="id_centre" value="{{infoDon.id_centre.raison_sociale}}" readonly title="Centre">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_parrain">Parrain </label>
+				<input type="text" id="id_parrain" class="form-control" name="id_parrain" value="{{infoDon.id_parrain.nom_par}}" readonly title="Centre">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<a href="{% url 'listeDon' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

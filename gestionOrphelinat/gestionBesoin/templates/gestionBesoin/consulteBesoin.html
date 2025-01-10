@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block titre_page %} AFFICHAGE DES BESOINS {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UN BESOIN
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="" method="GET" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_besoin">ID</label>
+				<input type="text" id="id_besoin" class="form-control" name="idbesoin" value="{{infoBesoin.id}}" readonly title="Identifiant du besoin">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="iddescription">Description du Besoin</label>
+				<input type="text" id="iddescription" class="form-control" name="description_bes" value="{{infoBesoin.description_bes}}" readonly title="La description du besoin">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="idtype">Le type</label>
+				<input type="text" id="idtype" class="form-control" name="tybes" value="{{infoBesoin.type_bes}}" readonly title="Le type du besoin">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="iddate">La date du besoin</label>
+				<input type="text" id="iddate" class="form-control" name="date_bes" value="{{infoBesoin.date_bes}}" readonly title="La date du besoin">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="idcentre">Centre concerné</label>
+				<input type="text" id="idcentre" class="form-control" name="id_centre" value="{{infoBesoin.id_centre}}" readonly title=" Centre concerné">
+			</div>		
+		</div>	
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<a href="{% url 'listebesoin' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

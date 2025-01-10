@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES PARRAINAGES {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES PARAINAGES
+
+{% endblock %}
+
+{% block formulaire %}
+
+    <table id="Id_parrainer" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Parrain</th>
+                <th>Nom Orphelin</th>
+                <th>Prénom Orphelin</th>
+                <th>Date Parrainage</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for elem in liste_parrainer %}
+            <tr>
+                <td width="50px">{{elem.id}}</td>
+                <td width="80px">{{elem.id_parrain.nom_par}} </td>
+                <td width="80px">{{elem.id_enfant.prenom_enf}} </td>
+                <td width="80px">{{elem.id_enfant.nom_enf}} </td>
+                <td width="80px">{{elem.date_parrainage |date:'j-n-Y'}}</td>
+                
+                <td width="200px">
+                    <a class="btn btn-primary" href="{% url 'consulterParrainer' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="{% url 'editerParrainer' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'supprimerParrainer' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if liste_parrainer.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{liste_parrainer.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ liste_parrainer.number }} sur {{ liste_parrainer.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listeDon.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{liste_parrainer.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{liste_parrainer.paginator.numeropage }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+        <div class="col-md-4"> 
+            <a href="{% url 'ajoutParrainer' %}" class="btn btn-info bt-sm" title="Nouveau Parrainage" target="_self">Nouveau Parainage &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+      </div>
+	 </div> <!--  Fin de la balise de la ligne pour les boutons -->
+
+{% endblock %}

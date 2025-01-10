@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block titre_page %} BANQUES {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES BANQUES
+
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'rechercherBanque' %}" method="get" class="form-horizontal">
+    <legend> RECHERCHER UNE BANQUE PAR : </legend> 
+      <div class="row">
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="libelle_operation">Description</label>
+                  <input type="text" id="libelle_operation" name="libelle_operation" class="form-control">
+              </div>
+          </div>
+  
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="type_operation">Type Operation</label>
+                    <select name="type_operation" id="">
+                        <option value="" selected>Sélectionner</option>
+                        <option value="Débit" selected>Débit</option>
+                        <option value="Crédit" selected>Crédit</option>
+                    </select>
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label for="date_operation">Date Operation</label>
+                <input type="date" id="date_operation" name="date_operation" class="form-control">
+            </div>
+            <button type="submit">Rechecher</button>
+        </div>
+      </div>
+</form>
+{% if listeBanque %}
+    <table id="Id_centre" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Libelle Opération</th>
+                <th>Type opération</th>
+                <th>Date de l'opération</th>
+                <th>Montant Débiter</th>
+                <th>Montant Créditer</th>
+                <th>Numéro Bancaire</th>
+                <th>Centre</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for elem in listeBanque %}
+            <tr>
+                <td width="50px">{{elem.id}}</td>
+                <td width="130px">{{elem.libelle_operation}}</td>  
+                <td width = "130px">{{elem.type_operation}}</td>
+                <td width="80px">{{elem.date_operation |date:'j-n-Y'}}</td>   
+                <td width="80px">{{elem.montant_debiter}}</td>
+                <td width="80px">{{elem.montant_crediter}}</td>
+                <td width="80px">{{elem.numero_banque}}</td>
+                <td width="80px">{{elem.id_centre}}</td>
+                
+                <td width="200px">
+                    <a class="btn btn-primary" href="{% url 'consulterBanque' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="{% url 'editerBanque' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'supprimerBanque' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listeBanque.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeBanque.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listeBanque.number }} sur {{ listeBanque.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listeBanque.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{listeBanque.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeBanque.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+	</div>
+{% elif listerechercher %}
+<table id="Id_centre" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Libelle Opération</th>
+            <th>Type Operation</th>
+            <th>Date de l'opération</th>
+            <th>Montant Débiter</th>
+            <th>Montant Créditer</th>
+            <th>Numéro Bancaire</th>
+            <th>Centre</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for elem in listerechercher %}
+        <tr>
+            <td width="50px">{{elem.id}}</td>
+            <td width="130px">{{elem.libelle_operation}}</td>  
+            <td width = "130px">{{elem.type_operation}}</td>
+            <td width="80px">{{elem.date_operation |date:'j-n-Y'}}</td>   
+            <td width="80px">{{elem.montant_debiter}}</td>
+            <td width="80px">{{elem.montant_crediter}}</td>
+            <td width="80px">{{elem.numero_banque}}</td>
+            <td width="80px">{{elem.id_centre}}</td>
+            
+            <td width="200px">
+                <a class="btn btn-primary" href="{% url 'consulterBanque' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                <a class="btn btn-info" href="{% url 'editerBanque' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                <a class="btn btn-danger" href="{% url 'supprimerBanque' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listerechercher.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerechercher.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listerechercher.number }} sur {{ listerechercher.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listerechercher.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listerechercher.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerechercher.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

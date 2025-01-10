@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block titre_page %} AFFICHAGE DES CAISSE {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UNE CAISSE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="" method="GET" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_caisse">ID de la Caisse</label>
+				<input type="text" id="id_caisse" class="form-control" name="id_caisse" value="{{infoCaisse.id}}" readonly title="Identifiant de la Caisse">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="type_operation">Le type de l'opération</label>
+				<input type="text" id="type_operation" class="form-control" name="type_operation" value="{{infoCaisse.type_operation}}" readonly title="Le type d'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="description_operation">Description de l'opération</label>
+				<input type="text" id="description_operation" class="form-control" name="description_operation" value="{{infoCaisse.description_operation}}" readonly title="La description de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="montant_operation">Montant de l'opération</label>
+				<input type="text" id="montant_operation" class="form-control" name="montant_operation" value="{{infoCaisse.montant_operation}}" readonly title="Le Montant de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_operation">Date Opération</label>
+				<input type="text" id="date_operation" class="form-control" name="date_operation" value="{{infoCaisse.date_operation}}" readonly title="La date de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Centre </label>
+				<input type="text" id="id_centre" class="form-control" name="id_centre" value="{{infoCaisse.id_centre}}" readonly title="Centre">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<a href="{% url 'listeCaisse' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

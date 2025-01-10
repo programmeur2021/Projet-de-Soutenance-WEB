@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block titre_page %} CAISSE {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES CAISSES
+
+{% endblock %}
+
+{% block formulaire %}
+        <form action="{% url 'rechercherCaisse' %}" method="get" class="form-horizontal">
+            <legend> RECHERCHER UNE CAISSE PAR : </legend> 
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label for="description_operation">Description</label>
+                          <input type="text" id="description_operation" name="description_operation" class="form-control">
+                      </div>
+                  </div>
+          
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label for="type_operation">Type Operation</label>
+                          <input type="text" id="type_operation" name="type_operation" class="form-control">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="date_operation">Date Operation</label>
+                        <input type="date" id="date_operation" name="date_operation" class="form-control">
+                    </div>
+                    <button type="submit">Rechecher</button>
+                </div>
+              </div>
+    </form>
+{% if listeCaisse %}
+    <table id="Id_caisse" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Type Opération</th>
+                <th>Description de Opération</th>
+                <th>Montant</th>
+                <th>Date Opération</th>
+                <th>Centre</th>
+                <th>Contact 1</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for elem in listeCaisse %}
+            <tr>
+                <td width="50px">{{elem.id}}</td>
+                <td width="130px">{{elem.type_operation}}</td>  
+                <td width="150px">{{elem.description_operation}}</td>    
+                <td width="80px">{{elem.montant_operation}}</td>
+                <td width="80px">{{element.date_operation |date:'j-n-Y'}}</td>
+                <td width="80px">{{elem.id_centre.raison_sociale}}</td>
+                <td width="80px">{{elem.id_centre.contact1}}</td>
+                <td width="80px">{{elem.id_centre.email}}</td>
+                
+                <td width="200px">
+                    <div class="form-group">
+                        <a class="btn btn-primary" href="{% url 'consulterCaisse' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                         <a class="btn btn-info" href="{% url 'editerCaisse' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                        <a class="btn btn-danger" href="{% url 'supprimerCaisse' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listeCaisse.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeCaisse.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listeCaisse.number }} sur {{ listeCaisse.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listecentre.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{listecentre.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listecentre.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+	</div>
+{% elif listerechercher %}
+
+<table id="Id_caisse" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Type Opération</th>
+            <th>Description de Opération</th>
+            <th>Montant</th>
+            <th>Date Opération</th>
+            <th>Centre</th>
+            <th>Contact 1</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for elem in listerechercher %}
+        <tr>
+            <td width="50px">{{elem.id}}</td>
+            <td width="130px">{{elem.type_operation}}</td>  
+            <td width="150px">{{elem.description_operation}}</td>    
+            <td width="80px">{{elem.montant_operation}}</td>
+            <td width="80px">{{element.date_operation |date:'j-n-Y'}}</td>
+            <td width="80px">{{elem.id_centre.raison_sociale}}</td>
+            <td width="80px">{{elem.id_centre.contact1}}</td>
+            <td width="80px">{{elem.id_centre.email}}</td>
+            
+            <td width="200px">
+                <div class="form-group">
+                    <a class="btn btn-primary" href="{% url 'consulterCaisse' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                     <a class="btn btn-info" href="{% url 'editerCaisse' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'supprimerCaisse' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listerechercher.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerechercher.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listerechercher.number }} sur {{ listerechercher.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listerechercher.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listerechercher.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerechercher.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

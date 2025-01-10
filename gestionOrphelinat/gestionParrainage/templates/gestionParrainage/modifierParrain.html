@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block titre_page %} EDITION DES PARRAINS{% endblock %}
+
+{% block titre_cadre %}
+MODIFICATION D'UN PARRAIN
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationParrain'  infoParrain.id %}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_parrain">ID du Parrain</label>
+				<input type="text" id="id_parrain" class="form-control" name="pa" value="{{infoParrain.id}}" readonly title="Identifiant du Parrain">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_par">Nom et prénom</label>
+				<input type="text" id="nom_par" class="form-control" name="nom_par" value="{{infoParrain.nom_par}}" title="Le nom du Parrain">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="adresse_par">Adresse </label>
+				<input type="text" id="adresse_par" class="form-control" name="adresse_par" value="{{infoParrain.adresse_par}}" title="L'adresse du Parrain">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="contact_par">Contact </label>
+				<input type="text" id="contact_par" class="form-control" name="contact_par" value="{{infoParrain.contact_par}}" title="Le contact du Parrain">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="email_par">Adresse E-mail  </label>
+				<input type="text" id="email_par" class="form-control" name="email_par" value="{{infoParrain.email_par}}" title="E-mail du Parrain">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<button type="submit" class="btn btn-info bt-sm">Modifier &nbsp;<i class="fa-solid fa-edit"></i></button>
+				<a href="{% url 'listeparrain' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+
+	</div>
+</form>
+
+{% endblock %}

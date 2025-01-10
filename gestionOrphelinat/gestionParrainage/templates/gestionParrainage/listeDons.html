@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES DONS {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES DONS
+
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'rechercherDon' %}" method="get" class="form-horizontal">
+    <legend> RECHERCHER UN DON PAR : </legend> 
+      <div class="row">
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="description_don">Description</label>
+                  <input type="text" id="description_don" name="description_don" class="form-control">
+              </div>
+          </div>
+  
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="type_don">Type Don</label>
+                  <input type="text" id="type_don" name="type_don" class="form-control">
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label for="date_don">Date Don</label>
+                <input type="date" id="date_don" name="date_don" class="form-control">
+            </div>
+            <button type="submit">Rechecher</button>
+        </div>
+      </div>
+</form>
+{% if listeDon %}
+    <table id="Id_caisse" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Type de Dons</th>
+                <th>Date de Don</th>
+                <th>Description du Don</th>
+                <th>Montant du Don</th>
+                <th>Centre</th>
+                <th>Parrain</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for elem in listeDon %}
+            <tr>
+                <td width="50px">{{elem.id}}</td>
+                <td width="130px">{{elem.type_dons}}</td>  
+                <td width="80px">{{elem.date_don |date:'j-n-Y'}}</td>
+                <td width="150px">{{elem.description_don}}</td>    
+                <td width="80px">{{elem.montant_don}}</td>
+                <td width="80px">{{elem.id_centre.raison_sociale}}</td>
+                <td width="80px">{{elem.id_parrain.nom_par}} </td>
+                
+                <td width="200px">
+                    <a class="btn btn-primary" href="{% url 'consulterDon' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="{% url 'editerDon' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'supprimerDon' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listeDon.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeDon.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listeDon.number }} sur {{ listeDon.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listeDon.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{listeDon.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeDon.paginator.numeropage }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+        <div class="col-md-4"> 
+            <a href="{% url 'ajoutDons' %}" class="btn btn-info bt-sm" title="Nouveau Don" target="_self">Nouveau Don &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+      </div>
+	 </div> <!--  Fin de la balise de la ligne pour les boutons -->
+{% elif listerechercher %}
+
+<table id="Id_caisse" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Type de Dons</th>
+            <th>Date de Don</th>
+            <th>Description du Don</th>
+            <th>Montant du Don</th>
+            <th>Centre</th>
+            <th>Parrain</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for elem in listerechercher %}
+        <tr>
+            <td width="50px">{{elem.id}}</td>
+            <td width="130px">{{elem.type_dons}}</td>  
+            <td width="80px">{{elem.date_don |date:'j-n-Y'}}</td>
+            <td width="150px">{{elem.description_don}}</td>    
+            <td width="80px">{{elem.montant_don}}</td>
+            <td width="80px">{{elem.id_centre.raison_sociale}}</td>
+            <td width="80px">{{elem.id_parrain.nom_par}} </td>
+            
+            <td width="200px">
+                <a class="btn btn-primary" href="{% url 'consulterDon' elem.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                <a class="btn btn-info" href="{% url 'editerDon' elem.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                <a class="btn btn-danger" href="{% url 'supprimerDon' elem.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listerechercher.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerechercher.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listerechercher.number }} sur {{ listerechercher.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listerechercher.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listerechercher.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerechercher.paginator.numeropage }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div>
+    <div class="col-md-4"> 
+        <a href="{% url 'ajoutDons' %}" class="btn btn-info bt-sm" title="Nouveau Don" target="_self">Nouveau Don &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+  </div>
+ </div> <!--  Fin de la balise de la ligne pour les boutons -->
+
+{% endif %}
+
+{% endblock %}

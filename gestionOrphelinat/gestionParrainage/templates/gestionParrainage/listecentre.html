@@ -1,0 +1,395 @@
+{% extends 'base.html' %}
+{% block titre_page %} LISTE DES CENTRES {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES CENTRES D'ORPHELINAT
+
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'rechercherCentre' %}" method="get" class="form-horizontal">
+    <legend> RECHERCHER UN CENTRE PAR : </legend> 
+      <div class="row">
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="localisation">Localisation</label>
+                  <input type="text" id="localisation" name="localisation" class="form-control">
+              </div>
+          </div>
+  
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="raison_sociale">Raison Sociale</label>
+                  <input type="text" id="raison_sociale" name="raison_sociale" class="form-control">
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label for="date_creation">Date de Création</label>
+                <input type="date" id="date_creation" name="date_creation" class="form-control">
+            </div>
+            <button type="submit">Rechecher <i class="fa fa-search"></i></button>
+            <a href="{% url 'listecentre' %}" class="btn btn-warning btn-sm" >Actualiser <i class="fa fa-refresh"></i></a>
+        </div>
+      </div>
+</form>
+{% if listecentre %}
+    <table id="Id_centre" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Raison Sociale</th>
+                <th>Contact 1</th>
+                <th>Contact 2</th>
+                <th>E-mail du Centre</th>
+                <th>Localisation du Centre</th>
+                <th>Responsable</th>
+                <th>Date de création</th>
+                <th>Capacité d'accueil</th>
+                <th>Logo du Centre</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for element in listecentre %}
+            <tr>
+                <td width="50px">{{element.id}}</td>
+                <td width="130px">{{element.raison_sociale}}</td>  
+                <td width="150px">{{element.contact1}}</td>    
+                <td width="80px">{{element.contact2}}</td>
+                <td width="80px">{{element.email}}</td>
+                <td width="80px">{{element.localisation}}</td>
+                <td width="80px">{{element.responsable}}</td>
+                <td width="80px">{{element.date_creation |date:'Y-n-j'}}</td>
+                <td width="80px">{{element.capacite}}</td>
+                <td width="180px">
+                    {% if element.logo %}
+                    <img src="{{element.logo.url}}" width="60px" height="60px">
+                    {% else %}   
+                    <label>Logo indisponible</label>   
+                    {% endif %}           
+                </td> 
+                
+                <td width="200px">
+                    <a class="btn btn-primary" href="{% url 'consulterCentre' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="{% url 'editerCentre' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'suppressionCentre' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listecentre.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listecentre.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listecentre.number }} sur {{ listecentre.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listecentre.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{listecentre.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listecentre.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div> <!-- Fin de la balise de la colonne -->
+        <div class="col-md-4"> 
+            <a href="{% url 'ajoutCentre' %}" class="btn btn-info bt-sm" title="Nouveau Centre" target="_self">Nouveau Centre &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+      </div>
+	</div> <!-- Fin de la balise pour la ligne pour les boutons-->
+{% elif listeLocalisation %}
+
+<table id="Id_centre" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Raison Sociale</th>
+            <th>Contact 1</th>
+            <th>Contact 2</th>
+            <th>E-mail du Centre</th>
+            <th>Localisation du Centre</th>
+            <th>Responsable</th>
+            <th>Date de création</th>
+            <th>Capacité d'accueil</th>
+            <th>Logo du Centre</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for element in listeLocalisation %}
+        <tr>
+            <td width="50px">{{element.id}}</td>
+            <td width="130px">{{element.raison_sociale}}</td>  
+            <td width="150px">{{element.contact1}}</td>    
+            <td width="80px">{{element.contact2}}</td>
+            <td width="80px">{{element.email}}</td>
+            <td width="80px">{{element.localisation}}</td>
+            <td width="80px">{{element.responsable}}</td>
+            <td width="80px">{{element.date_creation |date:'Y-n-j'}}</td>
+            <td width="80px">{{element.capacite}}</td>
+            <td width="180px">
+                {% if element.logo %}
+                <img src="{{element.logo.url}}" width="60px" height="60px">
+                {% else %}   
+                <label>Logo indisponible</label>   
+                {% endif %}           
+            </td> 
+            
+            <td width="200px">
+                <a class="btn btn-primary" href="{% url 'consulterCentre' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                <a class="btn btn-info" href="{% url 'editerCentre' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                <a class="btn btn-danger" href="{% url 'suppressionCentre' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listeLocalisation.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listeLocalisation.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listeLocalisation.number }} sur {{ listeLocalisation.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listeLocalisation.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listeLocalisation.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listeLocalisation.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div> <!-- Fin de la balise de la colonne -->
+
+    {% elif listeRaisonSociale %}
+
+<table id="Id_centre" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Raison Sociale</th>
+            <th>Contact 1</th>
+            <th>Contact 2</th>
+            <th>E-mail du Centre</th>
+            <th>Localisation du Centre</th>
+            <th>Responsable</th>
+            <th>Date de création</th>
+            <th>Capacité d'accueil</th>
+            <th>Logo du Centre</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for element in listeRaisonSociale %}
+        <tr>
+            <td width="50px">{{element.id}}</td>
+            <td width="130px">{{element.raison_sociale}}</td>  
+            <td width="150px">{{element.contact1}}</td>    
+            <td width="80px">{{element.contact2}}</td>
+            <td width="80px">{{element.email}}</td>
+            <td width="80px">{{element.localisation}}</td>
+            <td width="80px">{{element.responsable}}</td>
+            <td width="80px">{{element.date_creation |date:'Y-n-j'}}</td>
+            <td width="80px">{{element.capacite}}</td>
+            <td width="180px">
+                {% if element.logo %}
+                <img src="{{element.logo.url}}" width="60px" height="60px">
+                {% else %}   
+                <label>Logo indisponible</label>   
+                {% endif %}           
+            </td> 
+            
+            <td width="200px">
+                <a class="btn btn-primary" href="{% url 'consulterCentre' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                <a class="btn btn-info" href="{% url 'editerCentre' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                <a class="btn btn-danger" href="{% url 'suppressionCentre' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listeRaisonSociale.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listeRaisonSociale.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listeRaisonSociale.number }} sur {{ listeRaisonSociale.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listeRaisonSociale.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listeRaisonSociale.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listeRaisonSociale.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div> <!-- Fin de la balise de la colonne -->
+
+{% elif listeDate %}
+
+<table id="Id_centre" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Raison Sociale</th>
+            <th>Contact 1</th>
+            <th>Contact 2</th>
+            <th>E-mail du Centre</th>
+            <th>Localisation du Centre</th>
+            <th>Responsable</th>
+            <th>Date de création</th>
+            <th>Capacité d'accueil</th>
+            <th>Logo du Centre</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for element in listeDate %}
+        <tr>
+            <td width="50px">{{element.id}}</td>
+            <td width="130px">{{element.raison_sociale}}</td>  
+            <td width="150px">{{element.contact1}}</td>    
+            <td width="80px">{{element.contact2}}</td>
+            <td width="80px">{{element.email}}</td>
+            <td width="80px">{{element.localisation}}</td>
+            <td width="80px">{{element.responsable}}</td>
+            <td width="80px">{{element.date_creation |date:'Y-n-j'}}</td>
+            <td width="80px">{{element.capacite}}</td>
+            <td width="180px">
+                {% if element.logo %}
+                <img src="{{element.logo.url}}" width="60px" height="60px">
+                {% else %}   
+                <label>Logo indisponible</label>   
+                {% endif %}           
+            </td> 
+            
+            <td width="200px">
+                <a class="btn btn-primary" href="{% url 'consulterCentre' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                <a class="btn btn-info" href="{% url 'editerCentre' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                <a class="btn btn-danger" href="{% url 'suppressionCentre' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listeDate.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listeDate.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listeDate.number }} sur {{ listeDate.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listeLocalisation.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listeDate.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listeDate.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div> <!-- Fin de la balise de la colonne -->
+
+    <div class="col-md-4"> 
+        <a href="{% url 'ajoutCentre' %}" class="btn btn-info bt-sm" title="Nouveau Centre" target="_self">Nouveau Centre &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+  </div>
+</div> <!-- Fin de la balise pour la ligne pour les boutons-->
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block titre_page %} AFFICHAGE DES BANQUES {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UNE BANQUE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationBanque' editer.id %}" method="POST" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_banque">ID de la Banque</label>
+				<input type="text" id="id_banque" class="form-control" name="id_banque" value="{{editer.id}}" readonly title="Identifiant de la Banque">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="libelle_operation">Libelle de l'opération</label>
+				<input type="text" id="libelle_operation" class="form-control" name="libelle_op" value="{{editer.libelle_operation}}" title="Le type d'opération">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="type_operation">Type Opération</label>
+				<input type="text" id="type_operation" class="form-control" name="type_opera" value="{{editer.type_operation}}" title="Le type d'opération">
+			</div>		
+		</div>	
+	</div>
+
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_operation">Date de l'opération</label>
+				<input type="text" id="date_operation" class="form-control" name="date_operat" value="{{editer.date_operation}}" title="La date de l'opération">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="montant_debiter">Montant</label>
+				<input type="text" id="montant_debiter" class="form-control" name="montant" value="{{editer.montant}}" title="Le Montant Débiter">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="numero_banque">Numero Bancaire</label>
+				<input type="text" id="numero_banque" class="form-control" name="numero_banque" value="{{editer.numero_banque}}" title="Le numero Bancaire">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">Centre </label>
+				<input type="text" id="id_centre" class="form-control" name="id_ctre" value="{{editer.id_centre}}" title="Centre">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<button type="submit" class="btn btn-secondary btn-lg" title="Modificaiton d'une banque" target="_self">Modifier &nbsp; <i class="fa-solid fa-edit"></i></button>
+				<a href="{% url 'listeBanque' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

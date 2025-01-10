@@ -1,0 +1,41 @@
+
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path("ajoutCentre/", EnregistreCentre, name = "ajoutCentre"), 
+    path("ajoutEnfan/", EnregistreEnfant, name = "ajoutEnfant"), 
+    path("ajoutDons/", EnregistreDons, name = "ajoutDons"), 
+    path("ajoutParrain/", EnregistreParrain, name = "ajoutParrain"),
+    path("ajoutParrainer/", EnregistreParrainer, name = "ajoutParrainer"),
+    path("listecentre/", ListeCentre, name = "listecentre"), 
+    path("listeEnfant/", ListeEnfant, name = "listeEnfant"),
+    path("listeDon/", ListeDon, name ="listeDon"), 
+    path("listeparrain/", ListeParrain, name = "listeparrain"),
+    path("listeParainer/", ListeParrainer, name = "listeParainer"),
+    path("consulterCentre/<int:pk>", ConsulterCentre, name = "consulterCentre"), 
+    path("consulterEnfant/<int:pk>", ConsulterEnfant, name = "consulterEnfant"), 
+    path("consulterDon/<int:pk>", ConsulterDons, name = "consulterDon"), 
+    path("consulterParrain/<int:pk>", ConsulterParrain, name = "consulterParrain"),
+    path("consulterParrainer/<int:codes>", ConsulterParainer, name = "consulterParrainer"),
+    path("editerCentre/<int:pk>", EditerCentre, name = "editerCentre"), 
+    path("editerEnfant/<int:identifiant>", EditerEnfant, name = "editerEnfant"), 
+    path("editerDon/<int:pk>", EditerDon, name = "editerDon"), 
+    path("editerParrain/<int:kl>", EditerParrain, name = "editerParrain"), 
+    path("editerParrainer/<int:codes>", editerParainer, name = "editerParrainer"), 
+    path("supprimerParrainer/<int:codes>", SupprimerParainer, name = "supprimerParrainer"), 
+    path("modificationCentre/<int:id_centre>", ModifierCentre, name = "modificationCentre"), 
+    path("modificationEnfant/<int:identifiant>", ModificationEnfant, name = "modificationEnfant"), 
+    path("modificationDon/<int:codes>", ModificationDon, name = "modificationDon"), 
+    path("modificationParrain/<int:id_parrain>", ModifierParrain, name = "modificationParrain"), 
+    path("modificationParrainer/<int:codes>", ModifierParrainer, name = "modificationParrainer"), 
+    path("suppressionCentre/<int:id_centre>", SupprimerCentre, name = "suppressionCentre"), 
+    path("supprimerEnfant/<int:identifiant>", SupprimerEnfant, name = "supprimerEnfant"), 
+    path("supprimerDon/<int:pk>", SupprimerDons, name = "supprimerDon"), 
+    path("suppressionParrain/<int:id_parrain>", SupprimerParrain, name = "suppressionParrain"), 
+    path("filtrerEnfant/", RechercherEnfant, name = "filtrerEnfant"), 
+    path("rechercherDon/", RechercherDon, name = "rechercherDon"), 
+    path("rechercherCentre", RechercherCentre, name = "rechercherCentre"), 
+    path("rechercherParrain", RechercherParrain, name = "rechercherParrain"), 
+    
+]

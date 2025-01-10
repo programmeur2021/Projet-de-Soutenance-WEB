@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block titre_page %} EDITION DES ACTIVITES {% endblock %}
+
+{% block titre_cadre %}
+MODIFIER UNE ACTIVITE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationActivite' activite.id %}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_activite">ID de l'activite</label>
+				<input type="text" id="id_activite" class="form-control" name="id_activite" value="{{activite.id}}" readonly title="Identifiant de l'activite">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="description_act">Description de l'activite</label>
+				<input type="text" id="description_act" class="form-control" name="description_act" value="{{activite.description_act}}" title="Modifier votre description">
+			</div>		
+		</div>	
+	</div>
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_activite">Date de activite</label>
+				<input type="date" id="date_activite" class="form-control" name="date_act" value="{{activite.date_act |date:'Y-n-j'}}" title="Modifier la date de l'activite">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="rapport_activite">Rapport Activité</label>
+				<input type="text" id="rapport_activite" class="form-control" value="{{activite.rapport_act}}" title="Le rapport de l'acitivite">
+				<input type="file" title="Modifier le rapport" name="rapport_act" class="form-control">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">ID du centre </label>
+				<input type="text" id="id_centre" class="form-control" name="idcentre" value="{{activite.id_centre.id}}" title="Centre concerné" readonly>
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<button type="submit" class="btn btn-info bt-sm">Modifier &nbsp; <i class="fa-solid fa-edit"></i></button>
+				<a href="{% url 'listeactivite' %}" class="btn btn-secondary bt-sm" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+
+	</div>
+</form>
+
+{% endblock %}

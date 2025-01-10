@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %} GESTION DES ACTIVITEES {% endblock  %}
+
+{% block titre_cadre %} ENREGISTRER UNE ACTIVITEE {% endblock titre_cadre %}
+
+{% block formulaire %}
+
+<form action = "" method="POST" class="form-horizontal" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        {{form|crispy}}
+    </div>
+    <div class="form-group">
+        <div class="text-center">
+            <button type="submit" class="btn btn-success bt-sm">Enregistrer &nbsp;<i class="fa-solid fa-save"></i></button>
+            <button type="reset" class="btn btn-warning bt-sm">Annuler &nbsp;<i class="fa-solid fa-refresh"></i></button>
+            <a href="{% url 'listeactivite' %}" title="La liste des Activités" class="btn btn-info bt-sm">Voir Activités &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES PARRAINS {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES PARRAINS
+
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'rechercherParrain' %}" method="get" class="form-horizontal">
+    <legend> RECHERCHER UN PARRAIN PAR : </legend> 
+      <div class="row">
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="nom_par">Nom Complets</label>
+                  <input type="text" id="nom_par" name="nom_par" class="form-control">
+              </div>
+          </div>
+  
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="adresse">Residence</label>
+                  <input type="text" id="adresse" name="adresse_parrain" class="form-control">
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label for="contact_par">Téléphone</label>
+                <input type="text" id="contact_par" name="contact_par" class="form-control">
+            </div>
+           
+        </div>
+        <div> <button type="submit">Rechecher</button> </div>
+      </div>
+</form>
+{% if infoParrain %}
+    <table id="id_parrain" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Nom et Prénom</th>
+                <th>Adresse</th>
+                <th>Contact</th>
+                <th>E-mail</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for element in infoParrain %}
+            <tr>
+                <td width="50px">{{element.id}}</td>
+                <td width="130px">{{element.nom_par}}</td>  
+                <td width="150px">{{element.adresse_par}}</td>    
+                <td width="80px">{{element.contact_par}}</td>
+                <td width="80px">{{element.email_par}}</td>
+
+                <td width="200px">
+                    <div class ="form-group"> 
+                        <a class="btn btn-primary" href="{% url 'consulterParrain' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                        <a class="btn btn-info" href="{% url 'editerParrain' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                        <a class="btn btn-danger" href="{% url 'suppressionParrain' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                    </div>   
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listeparrain.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{infoParrain.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ infoParrain.number }} sur {{ infoParrain.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listeparrain.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{infoParrain.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{infoParrain.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+        <div class="col-md-4"> 
+            <a href="{% url 'ajoutParrain' %}" class="btn btn-info bt-sm" title="Nouveau Parrain" target="_self">Nouveau Parrain &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+      </div>
+	</div>
+{% elif listerecherche %}
+
+<table id="id_parrain" class="table table-striped table-bordered" width="100%">
+    <thead class="table-success">
+        <tr>
+            <th>ID </th>
+            <th>Nom et Prénom</th>
+            <th>Adresse</th>
+            <th>Contact</th>
+            <th>E-mail</th>
+            <th>Actions</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% for element in listerecherche %}
+        <tr>
+            <td width="50px">{{element.id}}</td>
+            <td width="130px">{{element.nom_par}}</td>  
+            <td width="150px">{{element.adresse_par}}</td>    
+            <td width="80px">{{element.contact_par}}</td>
+            <td width="80px">{{element.email_par}}</td>
+
+            <td width="200px">
+                <div class ="form-group"> 
+                    <a class="btn btn-primary" href="{% url 'consulterParrain' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="{% url 'editerParrain' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'suppressionParrain' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </div>   
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+            <nav aria-label="">
+                <ul class="pagination">
+
+                    {% if listerecherche.has_previous %}
+                    <li class="page-item">							
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerecherche.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                    </li>
+
+                    {% endif %}
+                        
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">
+                            Page {{ listerecherche.number }} sur {{ listerecherche.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if listerecherche.has_next %}
+
+                    <li class="page-item">							
+                        <a class="page-link" href="?page={{listerecherche.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{listerecherche.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+    </div>
+    <div class="col-md-4"> 
+        <a href="{% url 'ajoutParrain' %}" class="btn btn-info bt-sm" title="Nouveau Parrain" target="_self">Nouveau Parrain &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

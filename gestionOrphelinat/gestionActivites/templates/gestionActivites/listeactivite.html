@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% block titre_page %} LISTE DES ACTIVITES {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES ACTIVITES DE L'ORPHELINAT
+
+{% endblock %}
+
+{% block formulaire %}
+
+    <form action="{% url 'filtrerActivite' %} " method="get" class="form-horizontal">
+        <legend>RECHERCHER UNE ACTIVITE PAR : </legend>
+            <div class="arrow">
+                <div class="col-md-6" >
+                    <div class="form-group" >
+                        <label for="recherche_datedebut">Date Début</label>
+                        <input type="date" id="recherche_datedebut" name="datedebut" class="form-control">
+                    </div>
+                </div>
+    
+                <div class="col-md-6" >
+                    <div class="form-group" >
+                        <label for="recherche_datefin">Date Fin</label>
+                        <input type="date" id="recherche_datefin" name="datefin" class="form-control">
+                    </div>
+                    <button type="submit" class="btn-group-toggle " > Rechercher</button>
+                    <a href="{% url 'listeactivite'%}" class="btn btn-success btn-sm">Actualiser <i class="fa fa-refresh"></i></a>
+                </div>
+ 
+            </div>  
+            
+    </form>
+
+    {% if infoActivite %}
+
+    <table id="id_activite" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>Identifiant </th>
+                <th>description de l'activite</th>
+                <th>Date Activité</th> 
+                <th>Rapport activité</th>
+                <th>Centre</th>
+                <th>Contact 1</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead> 
+        <tbody>
+            {% for element in infoActivite %}
+            <tr>
+                <td width="50px">{{element.id}}</td>
+                <td width="130px">{{element.description_act}}</td>   
+                <td width="80px">{{element.date_act}}</td>
+                {%if element.rapport_act%}
+                   <td> <a href="{{element.rapport_act.url}}" target="_blank"> {{element.rapport_act.url}}</a></td>
+                   {% else %}
+                    <td>Rapport Indiponible</td>
+                {% endif %}
+                <td width="80px">{{element.id_centre.raison_sociale}}</td>
+                <td width="80px">{{element.id_centre.contact1}}</td>
+                <td width="80px">{{element.id_centre.email}}</td>
+                
+                <td width="200px">
+                    <div class ="form-group">
+
+                        <a class="btn btn-primary" href="{% url 'consulteractivite' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                        <a class="btn btn-info" href="{% url 'editerActivite' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                        <a class="btn btn-danger" href="{% url 'suppressionActivite' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}       
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if infoActivite.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{infoActivite.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ infoActivite.number }} sur {{ infoActivite.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if infoActivite.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{infoActivite.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{infoActivite.Paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+
+
+        {% elif  activite %}
+
+        <table id="id_activite" class="table table-striped table-bordered" width="100%">
+            <thead class="table-success">
+                <tr>
+                    <th>Identifiant </th>
+                    <th>description de l'activite</th>
+                    <th>Date Activité</th> 
+                    <th>Rapport Activite</th>
+                    <th>Centre</th>
+                    <th>Contact 1</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                {% for element in activite %}
+                <tr>
+                    <td width="50px">{{element.id}}</td>
+                    <td width="130px">{{element.description_act}}</td>  
+                    <td width="150px">{{element.date_act}}</td>  
+                    {%if element.rapport_act%}
+                    <td> <a href="{{element.rapport_act.url}}" target="_blank"> {{element.rapport_act}}</a></td>
+                    {% else %}
+                     <td>Rapport Indiponible</td>
+                    {% endif %}  
+                    <td width="80px">{{element.id_centre.raison_sociale}}</td>
+                    <td width="80px">{{element.id_centre.contact1}}</td>
+                    <td width="80px">{{element.id_centre.email}}</td>
+                    
+                    <td width="200px">
+                        <div class ="form-group">
+    
+                            <a class="btn btn-primary" href="{% url 'consulteractivite' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                            <a class="btn btn-info" href="{% url 'editerActivite' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                            <a class="btn btn-danger" href="{% url 'suppressionActivite' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+    
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+        </table>
+        
+<div class="row">
+            <div class="col-md-8">
+                    <nav aria-label="">
+                        <ul class="pagination">
+    
+                            {% if listeactivite.has_previous %}
+                            <li class="page-item">							
+                                <a class="page-link" href="?page=1">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{activite.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                            </li>
+    
+                            {% endif %}
+                                
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">
+                                    Page {{ activite.number }} sur {{ activite.paginator.num_pages }}
+                                </a>
+                            </li>
+                            
+                            {% if listeactivite.has_next %}
+    
+                            <li class="page-item">							
+                                <a class="page-link" href="?page={{activite.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                            </li>
+    
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{activite.Paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                            </li>
+    
+                            {% endif %}
+    
+                        </ul>
+                    </nav>
+    
+            </div>
+    
+        <div class="col-md-4">
+           <a href="{% url 'ajoutactivite' %}" class="btn btn-info bt-sm"> Nouvelle Activitée &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+	</div>
+{% endif %}
+{% endblock %}

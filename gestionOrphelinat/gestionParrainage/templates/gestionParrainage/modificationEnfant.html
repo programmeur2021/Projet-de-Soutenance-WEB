@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES ORPHELINS {% endblock %}
+
+{% block titre_cadre %}
+MODIFICATION D'UN ORPHELIN
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationEnfant' editer.id %}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="id_enf">ID de l'orphelin</label>
+				<input type="text" id="id_enf" class="form-control" name="id_enf" value="{{editer.id}}" readonly title="Identifiant de l'orphelin">
+			</div>
+		</div>
+
+			<div class="col-md-6">
+				<div class="form-group">
+					{% if editer.photo_enf %}
+					<a href="{{editer.photo_enf}}" target="_blank"> <img src="{{editer.photo_enf.url}}" width="20%" height="20%" alt=""></a>
+					{% else %}
+					<label for="">Photo Indisponible</label>
+					{% endif %}
+					<input type="file" id="photo_enf" class="form-control" name="photo_enf" title="Photo de l'orphelin">
+				</div>
+			</div>
+
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="nom_enf">Nom de l'enfant</label>
+				<input type="text" id="nom_enf" class="form-control" name="nom_enf" value="{{editer.nom_enf}}" title="Le nom de l'orphelin">
+			</div>		
+		</div>	
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="prenom_enf">Prénom de l'enfant</label>
+				<input type="text" id="prenom_enf" class="form-control" name="prenom_enf" value="{{editer.prenom_enf}}" title="Prénom de l'orphenlin">
+			</div>		
+		</div>
+	</div>
+
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="date_admission">Date Admission</label>
+				<input type="text" id="date_admission" class="form-control" name="date_admission" value="{{editer.date_admission |date:'Y-n-j'}}" title="Date d'admission">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="sexe_enf">Sexe de l'enfant</label>
+				<input type="text" id="sexe_enf" class="form-control" name="sexe_enf" value="{{editer.sexe_enf}}" title="Le sexe de l'enfant">
+			</div>		
+		</div>	
+
+	</div>
+
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="statut_enf">Statut de l'enfant</label>
+				<input type="text" id="statut_enf" class="form-control" name="statut_enf" value="{{editer.statut_enf}}" title="La localisation du Centre">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="date_naissance">Date de Naissance</label>
+				<input type="text" id="date_naissance" class="form-control" name="date_naissance" value="{{editer.date_naissance |date:'Y-n-j'}}" title="La Date de Naissance">
+			</div>		
+		</div>	
+
+	</div>
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="profession_enf">Profession de l'enfant</label>
+				<input type="text" id="profession_enf" class="form-control" name="profession_enf" value="{{editer.profession_enf}}" title="La Profession de l'orphelin">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="lieu_naissance">Lieu de Naissance</label>
+				<input type="text" id="lieu_naissance" class="form-control" name="lieu_naissance" value="{{editer.lieu_naissance}}" title="Le liieu de Naissance">
+			</div>		
+		</div>
+
+	</div>
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="pere_enf">Père de l'orphelin</label>
+				<input type="text" id="pere_enf" class="form-control" name="pere_enf" value="{{editer.pere_enf}}" title="Le Père de l'enfant">
+			</div>		
+		</div>	
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<label for="mere_enf">Mère de l'enfant</label>
+				<input type="text" id="mere_enf" class="form-control" name="mere_enf" value="{{editer.mere_enf}}" title="La Mère de l'enfant">
+			</div>		
+		</div>
+
+	</div>
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="id_centre">Centre</label>
+				<input type="text" id="id_centre" class="form-control" name="id_centre" value="{{editer.id_centre.raison_sociale}}" title="Le Centre" readonly>
+			</div>		
+		</div>	
+
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="id_centre_contact1">Contact 1</label>
+				<input type="text" id="id_centre_contact1" class="form-control" name="id_centre_contact1" value="{{editer.id_centre.contact1}}" title="Le contact 1 du Centre" readonly>
+			</div>		
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="id_centre_id">Id Centre</label>
+				<input type="text" id="id_centre_id" class="form-control" name="id_centre_id" value="{{editer.id_centre.id}}" title="Identifiant du Centre" readonly>
+			</div>		
+		</div>
+		
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="id_centre_email">E-mail</label>
+				<input type="text" id="id_centre_email" class="form-control" name="id_centre_email" value="{{editer.id_centre.email}}" title="Email du Centre" readonly>
+			</div>		
+		</div>
+		
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<button type="submit" class="btn btn-info bt-sm">Modifier &nbsp;<i class="fa-solid fa-edit"></i></button>
+				<a href="{% url 'listeEnfant' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

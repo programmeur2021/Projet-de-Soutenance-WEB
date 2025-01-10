@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %} GESTION DES DONS {% endblock  %}
+
+{% block titre_cadre %} ENREGISTRER UN DON {% endblock titre_cadre %}
+
+{% block formulaire %}
+
+<form action = "" method="POST" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+        {{form|crispy}}
+    </div>
+    <div class="form-group">
+        <div class="text-center">
+            <button type="submit" class="btn btn-success bt-sm">Enregistrer &nbsp;<i class="fa-solid fa-save"></i></button>
+            <button type="reset" class="btn btn-warning bt-sm">Annuler &nbsp;<i class="fa-solid fa-refresh"></i></button>
+            <a href="{% url 'listeDon' %}" class="btn btn-info bt-sm">Voir Liste &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+</form>
+
+
+{% endblock %}
+

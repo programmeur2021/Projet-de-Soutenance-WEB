@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES PARRAINAGES {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UN PARRAINAGE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="" method="GET" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_parainage">ID </label>
+				<input type="text" id="id_parainage" class="form-control" name="id_don" value="{{editer.id}}" readonly title="Identifiant du Parrainage">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_parrainage">Date Parrainage </label>
+				<input type="text" id="date_parrainage" class="form-control" name="date_parrainage" value="{{editer.date_parrainage}}" title="Date du Parrainage" readonly>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_enfant">Nom Enfant</label>
+				<input type="text" id="nom_enfant" class="form-control" name="nom_enfant" value="{{editer.id_enfant.nom_enf}}" readonly title="Nom de l'enfant">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="prenom_enfant">Prénom Enfant</label>
+				<input type="text" id="prenom_enfant" class="form-control" name="prenom_enfant" value="{{editer.id_enfant.prenom_enf}}" readonly title="Prénom de l'enfant">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_parrain">Nom du Parrain </label>
+				<input type="text" id="nom_parrain" class="form-control" name="nom_parrain" value="{{editer.id_parrain.nom_par}}" readonly title="Nom Parrain">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<a href="{% url 'listeParainer' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+
+</form>
+
+{% endblock %}

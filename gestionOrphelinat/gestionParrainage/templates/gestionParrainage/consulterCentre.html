@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block titre_page %} AFFICHAGE DES CENTRES {% endblock %}
+
+{% block titre_cadre %}
+AFFICHER UN CENTRE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="" method="GET" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_centre">ID du Centre</label>
+				<input type="text" id="id_centre" class="form-control" name="id_centre" value="{{infoCentre.id}}" readonly title="Identifiant du Centre">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_centre">Raison Sociale</label>
+				<input type="text" id="nom_centre" class="form-control" name="nom_centre" value="{{infoCentre.raison_sociale}}" readonly title="Le nom du Centre">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="contact1">Contact 1</label>
+				<input type="text" id="contact1" class="form-control" name="contact1" value="{{infoCentre.contact1}}" readonly title="Le contact1 du Centre">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="contact2">Contact 2</label>
+				<input type="text" id="contact2" class="form-control" name="contact2" value="{{infoCentre.contact2}}" readonly title="Le contact 2 du Centre">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="email">E-mail du Centre</label>
+				<input type="text" id="email" class="form-control" name="email" value="{{infoCentre.email}}" readonly title="E-mail du Centre">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="localisation">Localisation du Centre </label>
+				<input type="text" id="localisation" class="form-control" name="localisation" value="{{infoCentre.localisation}}" readonly title="La localisation du Centre">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="responsable">Responsable du Centre</label>
+				<input type="text" id="responsable" class="form-control" name="responsable" value="{{infoCentre.responsable}}" readonly title="Responsable du Centre">
+			</div>		
+		</div>	
+	</div>
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="date_creation">Date de création</label>
+				<input type="text" id="date_creation" class="form-control" name="date_creation" value="{{infoCentre.date_creation}}" readonly title="La date de création">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="capacite">Capacité d'accueil</label>
+				<input type="text" id="capacite" class="form-control" name="capacite" value="{{infoCentre.capacite}}" readonly title="la capacité d'accueil">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<a href="{% url 'listecentre' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+	</div>
+</form>
+
+{% endblock %}

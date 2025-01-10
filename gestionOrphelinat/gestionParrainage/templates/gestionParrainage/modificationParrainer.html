@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block titre_page %} GESTION DES PARRAINAGES {% endblock %}
+
+{% block titre_cadre %}
+MODIFIER UN PARRAINAGE
+{% endblock %}
+
+{% block formulaire %}
+
+<form action="{% url 'modificationParrainer' editer.id %}" method="POST" class="form-horizontal">
+
+	{% csrf_token %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="id_parainage">ID Parrainage</label>
+				<input type="text" id="id_parainage" class="form-control" name="id_don" value="{{editer.id}}" readonly title="Identifiant du Parrainage">
+			</div>
+		</div>
+	</div>
+	
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+                <select name="id_enfant" id="" class="form-control">
+                    <option value="{{editer.id_enfant.id}}" selected>{{editer.id_enfant.id}}</option>
+                    {% for elem in enfant %}
+                    <option value="{{elem.id}}">{{elem.nom_enf}} {{elem.prenom_enf}} </option>
+                    {% endfor%}
+                </select>
+			</div>		
+		</div>	
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_enfant">Nom Enfant</label>
+				<input type="text" id="nom_enfant" class="form-control" name="nom_enfant" value="{{editer.id_enfant.nom_enf}}" readonly title="Nom de l'enfant">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="prenom_enfant">Prénom Enfant</label>
+				<input type="text" id="prenom_enfant" class="form-control" name="prenom_enfant" value="{{editer.id_enfant.prenom_enf}}" readonly title="Prénom de l'enfant">
+			</div>		
+		</div>	
+	</div>
+
+    <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<select name="id_parrain" id="" class="form-control">
+                    <option value="{{editer.id_parrain.id}}" selected>{{editer.id_parrain.id}}</option>
+                    {% for elem in parrain %}
+                    <option value="{{elem.id}}">{{elem.nom_par}} {{elem.adresse_par}} </option>
+                    {% endfor%}
+                </select>
+			</div>		
+		</div>	
+        
+        
+        
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="nom_parrain">Nom du Parrain </label>
+				<input type="text" id="nom_parrain" class="form-control" name="nom_parrain" value="{{editer.id_parrain.nom_par}}" readonly title="Nom Parrain">
+			</div>		
+		</div>	
+	</div>
+
+	<div class="row">
+        <div class="col-md-6">
+			<div class="form-group">
+				<button type="submit" class="btn btn-info bt-sm">Modifier &nbsp;<i class="fa-solid fa-edit"></i></button>
+			</div>		
+		</div>	<!-- Fin de la balise pour la colonne -->
+
+        <div class="col-md-6">
+			<div class="form-group">
+				<a href="{% url 'listeParainer' %}" class="btn btn-secondary btn-lg" title="Page précédente" target="_self">Retour &nbsp; <i class="fa fa-arrow-left"></i></a>
+			</div>		
+		</div>	
+
+	</div>
+
+</form>
+
+{% endblock %}

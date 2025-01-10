@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% block titre_page %} LISTE DES ENFANTS {% endblock %}
+
+{% block titre_cadre %}
+LISTE DES ORPHELINS DU CENTRE
+
+{% endblock %}
+
+{% block formulaire %}
+
+    <form action="{% url 'filtrerEnfant' %}" method="get" class="form-horizontal">
+      <legend> RECHERCHER UN ENFANT PAR : </legend> 
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="recherche_nom">Nom de Famille</label>
+                    <input type="text" id="recherche_nom" name="recherche_nom" class="form-control">
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="date_admission">Date Admission</label>
+                    <input type="date" id="date_admission" name="date_admission" class="form-control">
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="date_admission">Statut Enfant</label> <br>
+                    <select name="statut" id="">
+                        <option value="" selected>Sélectionner</option>
+                        <option value="Orphelin de Père" selected>Orphelin de Père</option>
+                        <option value="Orphelin de Mère" selected>Orphelin de Mère</option>
+                        <option value="Adopté" selected>Adopté</option>
+                        <option value="Orphelin Père / Mère" selected>Orphelin Père / Mère</option>
+    
+                    </select>
+                    <button type="submit" >Rechercher</button>
+                </div>
+            </div>
+    
+        </div>
+        
+    </form>
+
+    {% if listeEnfant %}
+
+    <table id="id_enfant" class="table table-striped table-bordered" width="100%">
+        <thead class="table-success">
+            <tr>
+                <th>ID </th>
+                <th>Nom de l'enfant</th>
+                <th>Prénom de l'enfant</th>
+                <th>Date Admission</th>
+                <th>Sexe</th>
+                <th>Statut</th>
+                <th>Date de Naissance</th>
+                <th>Profession</th>
+                <th>Lieu de Naissance</th>
+                <th>Pere de l'enfant</th>
+                <th>Mère de l'enfant</th>
+                <th>Centre</th>
+                <th>Téléphone</th>
+                <th>E-mail</th>
+                <th>Photo</th>
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for element in listeEnfant %}
+            <tr>
+                <td width="50px">{{element.id}}</td>
+                <td width="130px">{{element.nom_enf}}</td>  
+                <td width="150px">{{element.prenom_enf}}</td>    
+                <td width="80px">{{element.date_admission}}</td>
+                <td width="80px">{{element.sexe_enf}}</td>
+                <td width="80px">{{element.statut_enf}}</td>
+                <td width="80px">{{element.date_naissance |date:'j-n-Y'}}</td>
+                <td width="80px">{{element.profession_enf}}</td>
+                <td width="80px">{{element.lieu_naissance}}</td>
+                <td width="80px">{{element.pere_enf}}</td>
+                <td width="80px">{{element.mere_enf}}</td>
+                <td width="80px">{{element.id_centre.raison_sociale}}</td>
+                <td width="80px">{{element.id_centre.contact1}}</td>
+                <td width="80px">{{element.id_centre.email}}</td>
+                <td width="180px">
+                    {% if element.photo_enf %}
+                    <img src="{{element.photo_enf.url}}" width="60px" height="60px">
+                    {% else %}   
+                    <label>Photo indisponible</label>   
+                    {% endif %}           
+                </td> 
+                
+                <td width="300px">
+                    <a class="btn btn-primary" href="{% url 'consulterEnfant' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="{% url 'editerEnfant' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="{% url 'supprimerEnfant' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listeEnfant.has_previous %}
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeEnfant.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listeEnfant.number }} sur {{ listeEnfant.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listeEnfant.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{listeEnfant.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{listeEnfant.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div><!-- Fin de la balise pour la colonne-->
+      
+{% elif enfant %}
+        <table id="id_enfant_rechercher" class="table table-striped table-bordered" width="100%">
+            <thead class="table-success">
+                <tr>
+                    <th>ID </th>
+                    <th>Nom de l'enfant</th>
+                    <th>Prénom de l'enfant</th>
+                    <th>Date Admission</th>
+                    <th>Sexe</th>
+                    <th>Statut</th>
+                    <th>Date de Naissance</th>
+                    <th>Profession</th>
+                    <th>Lieu de Naissance</th>
+                    <th>Pere de l'enfant</th>
+                    <th>Mère de l'enfant</th>
+                    <th>Centre</th>
+                    <th>Téléphone</th>
+                    <th>E-mail</th>
+                    <th>Photo</th>
+                    <th>Actions</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                {% for element in enfant %}
+                <tr>
+                    <td width="50px">{{element.id}}</td>
+                    <td width="130px">{{element.nom_enf}}</td>  
+                    <td width="150px">{{element.prenom_enf}}</td>    
+                    <td width="80px">{{element.date_admission}}</td>
+                    <td width="80px">{{element.sexe_enf}}</td>
+                    <td width="80px">{{element.statut_enf}}</td>
+                    <td width="80px">{{element.date_naissance |date:'j-n-Y'}}</td>
+                    <td width="80px">{{element.profession_enf}}</td>
+                    <td width="80px">{{element.lieu_naissance}}</td>
+                    <td width="80px">{{element.pere_enf}}</td>
+                    <td width="80px">{{element.mere_enf}}</td>
+                    <td width="80px">{{element.id_centre.raison_sociale}}</td>
+                    <td width="80px">{{element.id_centre.contact1}}</td>
+                    <td width="80px">{{element.id_centre.email}}</td>
+                    <td width="180px">
+                        {% if element.photo_enf %}
+                        <img src="{{element.photo_enf.url}}" width="60px" height="60px">
+                        {% else %}   
+                        <label>Photo indisponible</label>   
+                        {% endif %}           
+                    </td> 
+                    
+                    <td width="300px">
+                        <a class="btn btn-primary" href="{% url 'consulterEnfant' element.id %}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                        <a class="btn btn-info" href="{% url 'editerEnfant' element.id %}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                        <a class="btn btn-danger" href="{% url 'supprimerEnfant' element.id %}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="row">
+            <div class="col-md-8">
+                    <nav aria-label="">
+                        <ul class="pagination">
+    
+                            {% if enfant.has_previous %}
+                            <li class="page-item">							
+                                <a class="page-link" href="?page=1">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{enfant.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                            </li>
+    
+                            {% endif %}
+                                
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">
+                                    Page {{ enfant.number }} sur {{ enfant.paginator.num_pages }}
+                                </a>
+                            </li>
+                            
+                            {% if enfant.has_next %}
+    
+                            <li class="page-item">							
+                                <a class="page-link" href="?page={{enfant.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                            </li>
+    
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{enfant.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+                            </li>
+    
+                            {% endif %}
+    
+                        </ul>
+                    </nav>
+    
+            </div><!-- Fin de la balise pour la colonne-->
+{% endif %}
+
+{% endblock %}
