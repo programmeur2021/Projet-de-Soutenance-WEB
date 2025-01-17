@@ -1,0 +1,86 @@
+
+  {% load static %}
+
+      <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-cyan navbar-light">
+          <!-- Left navbar links -->
+          <ul class="navbar-nav">
+            
+            <li class="nav-item">
+              <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="/accueil/" class="nav-link" style="color:white;">Accueil</a>
+            </li>
+
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            
+            <li class="nav-item dropdown">
+                  <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" style="color:white;">Paramètres</a>
+                  <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li><a href="/enregistrerformateur/" class="dropdown-item" style="color:black;">Formateurs</a></li>
+                    <li><a href="/ajoutcategorie/" class="dropdown-item" style="color:black;">Catégorie</a></li>
+                    <li><a href="/ajoutformation/" class="dropdown-item" style="color:black;">Formations</a></li>
+                    <li><a href="/ajoutcentre/" class="dropdown-item" style="color:black;">Centres</a></li>
+                    <li><a href="/ajoutcompagnie/" class="dropdown-item" style="color:black;">Compagnies</a></li>
+                    <li><a href="/ajoutsalle/" class="dropdown-item" style="color:black;">Salles</a></li>
+
+                    <li class="dropdown-divider"></li> <!-- Separateur de menu deroulant-->
+              
+                    <li class="dropdown-submenu dropdown-hover">               
+                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Utilisateurs</a>
+                      <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                        <li><a tabindex="-1" href="/ajoutuser/" class="dropdown-item" style="color:black;">Ajouter</a>
+                        </li>
+                        <li><a href="/listeutilisateur/" class="dropdown-item" style="color:black;">Liste utilisateurs</a>
+                        </li>                
+                      </ul>
+                  </ul>
+            </li>
+
+            {% endif %}
+
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="/ajoutcours/" class="nav-link" style="color:white;">Cours</a>
+            </li>
+
+          </ul>
+
+          <!-- SEARCH FORM -->
+          <form class="form-inline ml-3">
+              
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Rechercher" aria-label="Search"> &nbsp;
+
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit" title="Rechercher dans le site">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div> &nbsp;
+
+                <div class="input-group-append">
+                  <a class="btn btn-secondary btn-sm" href="/deconnexion/" title="Se Déconnecter">Se Déconnecter &nbsp;<i class="fas fa-unlock"></i>
+                  </a>
+                </div>
+
+                 &nbsp; 
+                 {% if request.user.is_authenticated %}
+                 <div class="input-group-append">
+                     <label style="color: white; font-weight: bolder;">Utilisateur connecté : &nbsp; {{request.user.first_name}}&nbsp;{{request.user.last_name}}</label>
+                {% endif %}
+                </div>
+
+              </div>
+
+          </form>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+      </div>

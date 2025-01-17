@@ -33,8 +33,8 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    #'adminlte3',
-    #'adminlte3_theme',
+    'adminlte3',
+    'adminlte3_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -155,7 +155,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATE_INPUT_FORMATS = ['%Y-%m-%d', '%d-%m-%Y']
 DATE_FORMAT = 'j N, Y'
 
-LOGIN_REDIRECT_URL = '//'
+LOGIN_REDIRECT_URL = '/accueil/' 
 LOGIN_URL = '/'  # C'est l'URL de la page de connexion
 LOGOUT_REDIRECT_URL = '/'
 LOGOUT_URL = '/'
+AUTH_USER_MODEL = 'gestionUtilisateur.Utilisateur'

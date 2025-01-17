@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block titre_page %} LISTE DES UTILISATEURS {% endblock %}
+
+
+{% block titre_cadre %} LISTE DES COMPTES UTILISATEURS {% endblock %}
+
+
+
+{% block tableau %}
+
+
+	<table id="id_listeuser" class="table table-striped table-bordered" width="100%" cellspacing="0">
+        <thead class="table-success">
+            <tr>
+                <th>ID</th>
+                <th>Nom utilisateur</th>
+                <th>Email/Adresse electronique</th>                
+                <th>Prénoms</th>
+                <th>Nom famille</th>
+                <th>Membre Staff</th>
+                <th>Actif</th>    
+                <th>Actions</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for us in listeuser %}
+            <tr>
+                <td width="130px">{{us.id}}</td>
+                <td width="250px">{{us.username}}</td>
+                <td>{{us.email}}</td>
+                <td>{{us.first_name}}</td>
+                <td>{{us.last_name}}</td>
+
+                {% if us.is_staff %}
+                <td><input type="checkbox" name="staff_member" checked readonly></td>
+                {% else %}
+                <td><input type="checkbox" name="nostaff_member" readonly></td>
+                {% endif %}
+
+                {% if us.is_active %}
+                <td><input type="checkbox" name="active_member" checked readonly></td>
+                {% else %}
+                <td><input type="checkbox" name="noactive_member" readonly></td>
+                {% endif %}
+                    
+                <td width="200px">
+                    <a class="btn btn-primary" href="/detailsuser/{{us.id}}" title="Voir/Afficher"><span class="fa-solid fa-eye fa-sm"></span></a>
+                    <a class="btn btn-info" href="/editionuser/{{us.id}}" title="Modifier/Editer"><span class="fa-solid fa-edit fa-sm"></span></a>
+                    <a class="btn btn-danger" href="/supprimeuser/{{us.id}}" title="Supprimer"><span class="fa-solid fa-remove fa-sm"></span></a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<nav aria-label="">
+					<ul class="pagination">
+
+                        {% if listeuser.has_previous %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <li class="page-item">
+							<a class="page-link" href="?page={{ listeuser.previous_page_number }}"><span class="fa-solid fa-backward fa-sm"></span>Précédent</a>
+                        </li>
+
+						{% endif %}
+							
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">
+								Page {{ listeuser.number }} sur {{ listeuser.paginator.num_pages }}
+							</a>
+						</li>
+						
+                        {% if listeuser.has_next %}
+
+						<li class="page-item">							
+							<a class="page-link" href="?page={{ listeuser.next_page_number }}"><span class="fa-solid fa-forward fa-sm"></span>Suivant</a>
+                        </li>
+
+                        <li class="page-item">
+							<a class="page-link" href="?page={{ listeuser.paginator.num_pages }}"><span class="fa-solid fa-step-forward fa-sm"></span>Dernier</a>
+						</li>
+
+                        {% endif %}
+
+					</ul>
+				</nav>
+
+		</div>
+	</div>
+
+
+{% endblock %}

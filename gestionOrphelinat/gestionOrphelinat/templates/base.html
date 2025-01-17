@@ -19,6 +19,33 @@
     <!-- Reférences vers les élements de menu principal haut et de la barre latérale gauche -->
 
 	<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+   
+  
+    <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css' %}">
+     <!-- Ionicons -->
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   
+      <link rel="stylesheet" href="{% static 'assets/plugins/sweetalert2/sweetalert2.min.css' %}">
+     <!-- Toastr -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/toastr/toastr.min.css' %}">
+    
+     <!-- Theme style -->
+     <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css' %}">
+   
+     <!-- overlayScrollbars -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+   
+     <!-- Daterange picker -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/daterangepicker/daterangepicker.css' %}">
+   
+     <!-- summernote -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/summernote/summernote-bs4.css' %}">
+   
+     <!-- Google Font: Source Sans Pro -->
+     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+       
+
+	<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
     <style>
         .form-center
         {
@@ -44,6 +71,11 @@
 
 </head>
 <body>
+      <!--Intégration des templates de la barre de navigation -->
+
+	{% include 'sidebar.html' %}
+	{% include 'navbar.html' %}
+
     <div class="form-center">
       <div class="text-center">
 
@@ -67,10 +99,50 @@
             </div>
      </div>
 
-     <!-- <script type="text/javascript">
-        {% block JavaScript %}
-        {% endblock JavaScript %}
-     </script> -->
+<div class=""> <!--Fin -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card shadow mb-4">
+						<div class="">
+							<div class="table-responsive">
+
+								{% block tableau %}
+
+								{% endblock tableau %}
+
+							</div>
+				    </div>
+
+			  </div>
+		  </div>
+	  </div>
+	</div> <!--Fin -->
+
+    {% include 'footer.html' %}
+	
+	{% block javascript %}
+
+
+	<script type="text/javascript" language="javascript">
+
+	</script>
+
+
+	{% endblock javascript %}
+
+	<!-- Références vers les scripts des éléments du menu principal haut et de la barre latérale gauche-->
+
+	<!-- Bootstrap 4 -->
+	<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+	<!-- overlayScrollbars -->
+	<script src="{% static 'assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+
+	<!-- AdminLTE App -->
+	<script src="{% static 'assets/dist/js/adminlte.min.js' %}"></script>
+
+  <script src="{% static 'assets/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
 </body>
 </html>
