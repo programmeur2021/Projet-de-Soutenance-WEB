@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    {% load crispy_forms_tags %}
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MODIFICATION UTILISATEUR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>	
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Reférences vers les élements de menu principal haut et de la barre latérale gauche -->
+
+	<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+   
+  
+    <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css' %}">
+     <!-- Ionicons -->
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   
+      <link rel="stylesheet" href="{% static 'assets/plugins/sweetalert2/sweetalert2.min.css' %}">
+     <!-- Toastr -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/toastr/toastr.min.css' %}">
+    
+     <!-- Theme style -->
+     <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css' %}">
+   
+     <!-- overlayScrollbars -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+   
+     <!-- Daterange picker -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/daterangepicker/daterangepicker.css' %}">
+   
+     <!-- summernote -->
+     <link rel="stylesheet" href="{% static 'assets/plugins/summernote/summernote-bs4.css' %}">
+   
+     <!-- Google Font: Source Sans Pro -->
+     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+       
+
+	<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+    <style>
+        .form-center
+        {
+            
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            
+        }
+        form{
+            width: 100%;
+        }
+
+        #majuscule{
+        text-transform: uppercase;
+        }
+        #capitalletter{
+        text-transform: capitalize;
+        }
+        body{
+          width: 50%;
+          margin: 5px auto;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page bg-cyan">
+  <h3>MODIFIER LES INFORMATIONS </h3>
+        <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="row">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                          <i class="fas fa-user"></i>
+                          {{ utilisateur.username | as_crispy_field}}
+                     </div>                
+                </div>
+
+                <div class="col-md-6"> 
+                     <div class="group-group mb-3">
+                         <i class="fa fa-envelope"></i>
+                         {{ utilisateur.email | as_crispy_field}} 
+                    </div>
+              </div>
+          </div> <!-- Fin de la ligne -->
+          
+          <div class="row"> <!-- Début de la ligne -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <i class="fas fa-lock"></i>
+                  {{ utilisateur.password | as_crispy_field}}                  
+                </div>                
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <i class="fas fa-lock"></i>
+                  {{ utilisateur.confirmation_password | as_crispy_field}}                  
+                </div>                
+              </div>
+          </div><!-- Fin de la ligne -->
+
+          <div class="row"> <!-- Début de la ligne -->
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ utilisateur.first_name | as_crispy_field}}
+                </div>                
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ utilisateur.last_name | as_crispy_field}}
+                </div>                
+              </div>
+
+          </div> <!-- Fin de la ligne -->
+
+          <div class="row"> <!-- Début de la ligne -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <i class="fas fa-file"></i>
+                  {{ utilisateur.photo_utilisateur | as_crispy_field }}                  
+                </div>                
+              </div>
+          </div> <!-- Fin de la ligne -->
+          <div class="row"> <!-- Début de la ligne -->
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success btn-lg" style="text-align: center;">S'inscrire &nbsp;<i class="fa fa-plus-circle"></i></button>
+                </div>
+                <div class="col-md-6">
+                  <a href="{% url 'inscription' %}" target="_blank">Se Connecter&nbsp;<i class="fa fa-unlock"></i> </a>
+                </div>
+          </div> <!-- Fin de la ligne -->
+
+        </form>
+</body>

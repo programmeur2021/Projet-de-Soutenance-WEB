@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <title>TABLEAU DE BORD GESTION ORPHELINAT</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/summernote/summernote-bs4.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+       <!-- Google Font: Source Sans Pro -->
+       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+       <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+       <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>	
+    
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+       <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+       <!-- Reférences vers les élements de menu principal haut et de la barre latérale gauche -->
+   
+     <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed" id="page-top">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-cyan navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/accueil/" class="nav-link" style="color:white;">Accueil</a>
+      </li>
+
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+        
+        <div class="input-group input-group-sm">
+          <input class="form-control form-control-navbar" type="search" placeholder="Rechercher" aria-label="Search"> &nbsp;
+
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="submit" title="Rechercher dans le site">
+              <i class="fas fa-search"></i>
+            </button>
+          </div> &nbsp;
+
+          <div class="input-group-append">
+            <a class="btn btn-secondary btn-sm" href="/deconnexion/" title="Se Déconnecter">Se Déconnecter &nbsp;<i class="fas fa-unlock"></i>
+            </a>
+          </div>
+
+           &nbsp; 
+           {% if request.user.is_authenticated %}
+           <div class="input-group-append">
+               <label style="color: white; font-weight: bolder;">Utilisateur connecté : &nbsp; {{request.user.first_name }}&nbsp;{{request.user.last_name}}</label>
+            {% endif %}
+          </div>
+
+        </div>
+    </form>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="/accueil/" class="brand-link">
+        <img src="{% static 'assets/dist/img/logo_enppc.png' %}" alt="Logo ENPPC" class="brand-image img-circle elevation-3"
+             style="opacity: 0.8">
+        <span class="brand-text"><strong>ORPHELINAT</strong></span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+          <div class="image">
+
+          {% if request.user.is_authenticated and request.user.photo_user %}
+
+            <img src="{{ request.user.photo_user.url }}" class="img-circle elevation-2" alt="Photo profil">
+
+          {% else %}
+
+            <img src="{% static 'assets/dist/img/avatar5.png' %}" class="img-circle elevation-2" alt="Photo profil">
+
+          {% endif %}
+            
+          </div>
+
+          {% if request.user.is_authenticated %}
+          <div class="info">
+            <a href="#" class="d-block">{{request.user.first_name}}<br> {{request.user.last_name}}</a>
+          </div>
+          {% endif %}
+        </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              
+              
+              <li class="nav-item has-treeview menu-open">
+                
+                  <a href="{% url 'accueil' %}" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Tableau de Bord
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+
+              </li>
+              
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+
+              <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-cog"></i>
+                      <p>
+                        Paramètres
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                            <a href="{% url 'inscription'%}" class="nav-link">
+                              <i class="fas fa-user-circle nav-icon"></i>
+                              <p>Ajouter utilisateur</p>
+                            </a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a href="{% url 'listeutilisateur' %}" class="nav-link">
+                              <i class="fas fa-file nav-icon"></i>
+                              <p>Liste Utilisateur</p>
+                            </a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a href="/ajoutformation/" class="nav-link">
+                              <i class="fas fa-layer-group nav-icon"></i>
+                              <p>Rénitialiser mot de passe</p>
+                            </a>
+                          </li>
+                        
+                          <li class="nav-item">
+                            <a href="/ajoutcentre/" class="nav-link">
+                              <i class="fas fa-landmark nav-icon"></i>
+                              <p>Se déconnecter</p>
+                            </a>
+                          </li>
+
+                      </ul>
+                </li>
+            {% endif %}
+              <li class="nav-item has-treeview"> <!-- Début Centres-->
+
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-book"></i>
+                      <p>
+                        Gestion des Centres
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                      
+                          <li class="nav-item">
+                            <a href="{% url 'ajoutCentre'%}" class="nav-link">
+                              <i class="fas fa-chalkboard nav-icon"></i>
+                              <p>Enregistrer un Centre</p>
+                            </a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a href="{% url 'listecentre'%}" class="nav-link">
+                              <i class="fas fa-file-pdf nav-icon"></i>
+                              <p>Liste des Centres</p>
+                            </a>
+                          </li>
+                    </ul>
+
+              </li> <!-- Fin our centre-->
+
+              <li class="nav-item has-treeview"> <!-- Début Orphelins-->
+
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    Gestion des Orphelins
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+
+                <ul class="nav nav-treeview">
+                  
+                      <li class="nav-item">
+                        <a href="{% url 'ajoutEnfant'%}" class="nav-link">
+                          <i class="fas fa-chalkboard nav-icon"></i>
+                          <p>Enregistrer un Orphelin</p>
+                        </a>
+                      </li>
+
+                      <li class="nav-item">
+                        <a href="{% url 'listeEnfant'%}" class="nav-link">
+                          <i class="fas fa-file-pdf nav-icon"></i>
+                          <p>Liste des Orphelins</p>
+                        </a>
+                      </li>
+                </ul>
+
+          </li> <!-- Fin our Orphelins-->
+
+          <li class="nav-item has-treeview"> <!-- Début Parrains-->
+
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Gestion des Parrains
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              
+                  <li class="nav-item">
+                    <a href="{% url 'ajoutParrain'%}" class="nav-link">
+                      <i class="fas fa-chalkboard nav-icon"></i>
+                      <p>Enregistrer un Parrain</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{% url 'ajoutParrainer'%}" class="nav-link">
+                      <i class="fas fa-chalkboard nav-icon"></i>
+                      <p>Faire un Parrainnage</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{% url 'listeparrain'%}" class="nav-link">
+                      <i class="fas fa-file-pdf nav-icon"></i>
+                      <p>Liste des Parrains</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{% url 'listeParainer'%}" class="nav-link">
+                      <i class="fas fa-file-pdf nav-icon"></i>
+                      <p>Listes De Parraianage</p>
+                    </a>
+                  </li>
+
+            </ul>
+
+      </li> <!-- Fin pour Parrains-->
+
+      <li class="nav-item has-treeview"> <!-- Début Dons-->
+
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-book"></i>
+          <p>
+            Gestion des Dons
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+
+        <ul class="nav nav-treeview">
+          
+              <li class="nav-item">
+                <a href="{% url 'ajoutDons'%}" class="nav-link">
+                  <i class="fas fa-chalkboard nav-icon"></i>
+                  <p>Enregistrer un Don</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{% url 'listeDon'%}" class="nav-link">
+                  <i class="fas fa-file-pdf nav-icon"></i>
+                  <p>Liste des Dons</p>
+                </a>
+              </li>
+        </ul>
+
+  </li> <!-- Fin our Dons-->
+
+  <li class="nav-item has-treeview"> <!-- Début Finances-->
+
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Gestion des Finances
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+
+    <ul class="nav nav-treeview">
+      
+          <li class="nav-item">
+            <a href="{% url 'ajoutBanque'%}" class="nav-link">
+              <i class="fas fa-chalkboard nav-icon"></i>
+              <p>Enregistrer une Finance</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'listeBanque'%}" class="nav-link">
+              <i class="fas fa-file-pdf nav-icon"></i>
+              <p>Liste des Finances</p>
+            </a>
+          </li>
+    </ul>
+
+</li> <!-- Fin pour Finance-->
+
+<li class="nav-item has-treeview"> <!-- Début Caisse-->
+
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-book"></i>
+    <p>
+      Gestion de la Caisse
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+
+  <ul class="nav nav-treeview">
+    
+        <li class="nav-item">
+          <a href="{% url 'ajoutCaisse'%}" class="nav-link">
+            <i class="fas fa-chalkboard nav-icon"></i>
+            <p>Enregistrer un Caisse</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'listeCaisse'%}" class="nav-link">
+            <i class="fas fa-file-pdf nav-icon"></i>
+            <p>Liste Caisse</p>
+          </a>
+        </li>
+  </ul>
+
+</li> <!-- Fin  pour la Caisse-->
+
+<li class="nav-item has-treeview"> <!-- Début acivité-->
+
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-book"></i>
+    <p>
+      Gestion des Activitées
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+
+  <ul class="nav nav-treeview">
+    
+        <li class="nav-item">
+          <a href="{% url 'ajoutactivite'%}" class="nav-link">
+            <i class="fas fa-chalkboard nav-icon"></i>
+            <p>Enregistrer une activitée</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'listeactivite'%}" class="nav-link">
+            <i class="fas fa-file-pdf nav-icon"></i>
+            <p>Liste des Activitées</p>
+          </a>
+        </li>
+  </ul>
+
+</li> <!-- Fin pour activité-->
+
+<li class="nav-item has-treeview"> <!-- Début Besoins-->
+
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-book"></i>
+    <p>
+      Gestion des Besoins
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+
+  <ul class="nav nav-treeview">
+    
+        <li class="nav-item">
+          <a href="{% url 'ajoutbesoin'%}" class="nav-link">
+            <i class="fas fa-chalkboard nav-icon"></i>
+            <p>Enregistrer un Besoin</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'listebesoin'%}" class="nav-link">
+            <i class="fas fa-file-pdf nav-icon"></i>
+            <p>Liste des Besoins</p>
+          </a>
+        </li>
+  </ul>
+
+</li> <!-- Fin pour Besoins-->
+
+              <li class="nav-header">OUTILS</li>
+                    <li class="nav-item">
+                      <a href="pages/calendar.html" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                          Calendrier
+                        </p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="pages/gallery.html" class="nav-link">
+                        <i class="nav-icon fas fa-image"></i>
+                        <p>
+                          Gallerie d'images
+                        </p>
+                      </a>
+                    </li>
+              
+              <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-envelope"></i>
+                      <p>
+                        Boîtes de reception
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="//" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>Inbox</p>
+                        </a>
+                      </li>
+                  
+                      <li class="nav-item">
+                        <a href="//" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>Compose</p>
+                        </a>
+                      </li>
+                  
+                      <li class="nav-item">
+                        <a href="//" class="nav-link">
+                          <i class="fas fa-circle nav-icon"></i>
+                          <p>Read</p>
+                        </a>
+                      </li>
+                    </ul>
+               </li>
+              
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+
+               <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-plus-square"></i>
+                      <p>
+                        Utilisateurs et Privilèges
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+              
+                  <ul class="nav nav-treeview">
+                      
+                      <li class="nav-item">
+                        <a href="/deconnexion/" class="nav-link">
+                          <i class="fas fa-unlock nav-icon"></i>
+                          <p>Se Déconnecter</p>
+                        </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="/ajoutuser/" class="nav-link">
+                          <i class="fas fa-user nav-icon"></i>
+                          <p>Ajouter un utilisateur</p>
+                        </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Reinitialiser mot de passe</p>
+                        </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Recuperer mot de passe</p>
+                        </a>
+                      </li>
+                  </ul>
+                </li>
+              {% endif %}
+            </ul>        
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">TABLEAU DE BORD ORPHELINAT</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/accueil/">Accueil</a></li>
+              <li class="breadcrumb-item active">Tableau de bord</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        
+        <div class="row">
+          
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{nombre_centre}}</h3>
+               
+                <p>Centre Orphelinat</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+              <a href="/ajoutformation/" class="small-box-footer">Plus d'infos &nbsp; <i class="fas fa-arrow-circle-right"></i></a>
+              {% endif %}
+            </div>
+          </div>
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{nombre_orphelin}}</h3>
+
+                <p>Orphelins</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+              <a href="/enregistrerformateur/" class="small-box-footer">Plus d'infos &nbsp; <i class="fas fa-arrow-circle-right"></i></a>
+              {% endif %}
+            </div>
+          </div>
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{nombre_parrain}}</h3>
+
+                <p>Parrains</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+              <a href="/ajoutcentre/" class="small-box-footer">Plus d'infos &nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+              {% endif %}
+            </div>
+          </div>
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{nombre_parrainer}}</h3>
+
+                <p>Parrainage</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+              <a href="/ajoutsalle/" class="small-box-footer">Plus d'infos &nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+              {% endif %}
+            </div>
+          </div>
+          <!-- ./col -->
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{nombre_utilisateur}}</h3>
+
+                <p>Utilisateurs</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="/ajoutcours/" class="small-box-footer">Plus d'infos &nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{nombre_don}}</h3>
+
+                <p>Dons</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="/ajoutcours/" class="small-box-footer">Plus d'infos &nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{nombre_activite}}</h3>
+
+                <p>Activite </p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="/ajoutcours/" class="small-box-footer">Plus d'infos &nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{nombre_compagnie}}</h3>
+
+                <p>Somme Caisse</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+              <a href="/ajoutcompagnie/" class="small-box-footer">Plus d'infos &nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+              {% endif %}
+            </div>
+          </div>
+          <!-- ./col -->
+
+      </div>
+      <!-- /.row -->
+
+
+        <!-- Main row -->
+      <div class="row">
+          <!-- Left col -->
+          <section class="col-lg-7 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+
+            <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      <i class="fas fa-chart-pie mr-1"></i>
+                      Statistiques de l'evolution des Orphelins
+                    </h3>                
+                  </div><!-- /.card-header -->
+
+              <div class="card-body">
+                 <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                        <div class="chart tab-pane active" id="revenue-chart"
+                             style="position: relative; height: 300px;">
+                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
+                         </div>
+                          <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                            <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
+                          </div>  
+                 </div>
+              </div><!-- /.card-body -->
+
+            </div>
+            <!-- /.card -->
+
+            <!-- Calendar -->
+            <div class="card bg-gradient-success">
+                <div class="card-header border-0">
+                      <h3 class="card-title">
+                        <i class="far fa-calendar-alt"></i>
+                        Calendrier
+                      </h3>           
+                    
+                    <!-- tools card -->
+                <div class="card-tools">
+                  <!-- button with a dropdown -->
+                    <div class="btn-group">
+                          <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-bars"></i>
+                          </button>
+
+                          <div class="dropdown-menu float-right" role="menu">
+                            <a href="#" class="dropdown-item">Nouveau evenement</a>
+                            <a href="#" class="dropdown-item">Supprimer tous</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">Afficher le calendrier</a>
+                          </div>
+
+                     </div>
+
+                          <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                          </button>
+
+                </div>
+                <!-- /. tools -->
+              </div>
+              <!-- /.card-header -->
+
+              <div class="card-body pt-0">
+                <!--The calendar -->
+                <div id="calendar" style="width: 100%"></div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+         </section>
+          <!-- /.Left col -->
+       
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-5 connectedSortable">
+
+            <!-- Map card -->
+            <div class="card bg-gradient-primary">
+              <div class="card-header border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-map-marker-alt mr-1"></i>
+                    Visiteurs
+                  </h3>
+                <!-- card tools -->
+                <div class="card-tools">
+                      <button type="button"
+                              class="btn btn-primary btn-sm daterange"
+                              data-toggle="tooltip"
+                              title="Date range">
+                        <i class="far fa-calendar-alt"></i>
+                      </button>
+                      <button type="button"
+                              class="btn btn-primary btn-sm"
+                              data-card-widget="collapse"
+                              data-toggle="tooltip"
+                              title="Collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                </div>
+                <!-- /.card-tools -->
+              </div>
+
+              <div class="card-body">
+                <div id="world-map" style="height: 250px; width: 100%;"></div>
+              </div>
+              <!-- /.card-body-->
+              
+              <div class="card-footer bg-transparent">
+                <div class="row">
+                      <div class="col-4 text-center">
+                        <div id="sparkline-1"></div>
+                        <div class="text-white">Visiteurs</div>
+                      </div>
+
+                  <!-- ./col -->
+                      <div class="col-4 text-center">
+                        <div id="sparkline-2"></div>
+                        <div class="text-white">Online</div>
+                      </div>
+                  <!-- ./col -->
+
+                      <div class="col-4 text-center">
+                        <div id="sparkline-3"></div>
+                        <div class="text-white">Vues</div>
+                      </div>
+                  <!-- ./col -->
+
+                </div>
+                <!-- /.row -->
+              </div>
+            </div>
+            <!-- /.card -->
+
+          </section>
+
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+
+    </section>
+    <!-- /.content -->
+    
+  </div>
+
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2023 <a href="https://enppc-gn.org">GESTION ORPHELINAT 2025</a>. &nbsp;</strong>
+    Tous droits reservés. &nbsp;
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0.0
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- jQuery -->
+<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'assets/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'assets/plugins/chart.js/Chart.min.js' %}"></script>
+<!-- Sparkline -->
+<script src="{% static 'assets/plugins/sparklines/sparkline.js' %}"></script>
+<!-- JQVMap -->
+<script src="{% static 'assets/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+<script src="{% static 'assets/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{% static 'assets/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'assets/plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'assets/plugins/daterangepicker/daterangepicker.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'assets/plugins/summernote/summernote-bs4.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'assets/dist/js/adminlte.js' %}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{% static 'assets/dist/js/pages/dashboard.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'assets/dist/js/demo.js' %}"></script>
+
+</body>
+</html>

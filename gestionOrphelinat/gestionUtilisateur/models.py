@@ -6,4 +6,5 @@ TYPE_UTILISATEUR = (('Centre', 'Centre'), ('Parrain', 'Parrain'), ('Visiteur', '
 class Utilisateur(AbstractUser):
 	type_utilisateur = models.CharField(max_length=25,choices=TYPE_UTILISATEUR)
 	photo_utilisateur = models.FileField(upload_to='media/Utilisateur',blank=True)
+	confirmation_password = models.CharField(max_length=50)
 
