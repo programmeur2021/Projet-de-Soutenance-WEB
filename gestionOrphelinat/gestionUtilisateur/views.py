@@ -10,7 +10,6 @@ from django.core.paginator import Paginator
 
 # Permet d'acceder au tableau de bord de l'application
 @login_required
- # return render(request, 'dashboard.html')
 def home(request):
     liste_centre = Centre_Orphelinat.objects.all()
     liste_orphelin = Enfant.objects.all()

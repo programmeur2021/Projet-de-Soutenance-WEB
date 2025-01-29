@@ -76,7 +76,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
+            os.path.join(BASE_DIR, 'gestionOrphelinat/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -140,7 +140,7 @@ USE_TZ = True
 # STATIC_URL = 'static/'
 # STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/' #url pour acceder dans le dossier static
-STATICFILES_DIRS = [BASE_DIR/'static/']
+STATICFILES_DIRS = [BASE_DIR/'gestionOrphelinat/static/']
 # STATICFILES_DIRS = [BASE_DIR/'gestionOrphelinat/static']
 # MEDIA_DIR = BASE_DIR/'media'
 

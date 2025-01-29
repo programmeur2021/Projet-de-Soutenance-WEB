@@ -20,13 +20,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from gestionUtilisateur.views import  logoutuser,home, Loginuser
-
+from .views import *
 urlpatterns = [
-    path('', Loginuser, name='connexion'),
+    path('connexion', Loginuser, name='connexion'),
     path('deconnexion/', logoutuser, name='deconnexion'),
     path('accueil/', home, name='accueil'),
     path('logout/', RedirectView.as_view(url ='/admin/logout/')),
     path('admin/', admin.site.urls),
+    path('About/', About, name="about"),
+    path('services/', Services, name="services"),
+    path('gallery/', Gallery, name="gallery"),
+    path('contact/', Contact, name="contact"),
+    path('', PageAccueil, name="accueil"),
     path('Utilisateur/', include("gestionUtilisateur.urls")),
     path('Parrainage/', include("gestionParrainage.urls")),
     path('Finance/', include("gestionFinance.urls")),
