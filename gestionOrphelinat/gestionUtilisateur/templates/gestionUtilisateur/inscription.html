@@ -126,19 +126,27 @@
           </div> <!-- Fin de la ligne -->
 
           <div class="row"> <!-- Début de la ligne -->
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
                   <i class="fas fa-file"></i>
                   {{ form.photo_utilisateur | as_crispy_field }}                  
                 </div>                
               </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <i class="fas fa-file"></i>
+                  {{ form.type_utilisateur | as_crispy_field }}                  
+                </div>                
+              </div>
+
           </div> <!-- Fin de la ligne -->
           <div class="row"> <!-- Début de la ligne -->
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-success btn-lg" style="text-align: center;">S'inscrire &nbsp;<i class="fa fa-plus-circle"></i></button>
                 </div>
                 <div class="col-md-6">
-                  <a href="{% url 'inscription' %}" target="_blank">Se Connecter&nbsp;<i class="fa fa-unlock"></i> </a>
+                  <a href="/connexion/" target="_blank">Se Connecter&nbsp;<i class="fa fa-unlock"></i> </a>
                 </div>
           </div> <!-- Fin de la ligne -->
 

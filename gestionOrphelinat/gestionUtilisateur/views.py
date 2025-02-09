@@ -5,7 +5,7 @@ from django.contrib import messages
 from gestionParrainage.models import *
 from gestionActivites.models import Activites
 from gestionUtilisateur.forms import FormAuthentification, FormUser
-from gestionUtilisateur.models import Utilisateur
+from gestionUtilisateur.models import TYPE_UTILISATEUR, Utilisateur
 from django.core.paginator import Paginator
 
 # Permet d'acceder au tableau de bord de l'application
@@ -61,6 +61,8 @@ def Loginuser(request):
 
 		if user is not None and password:
 			login(request, user)
+			# id_user=request.user.id
+			# type=request.user.type_utilisateur
 			return redirect('/accueil/') # En cas de connexion reussie, je redirige l'utilisateur vers la page d'accueil de l'application, i.e le dashboard
 		else:
 			messages.error(request, 'Veuillez vérifier vos informations d\'authentification')
@@ -92,9 +94,17 @@ def Inscription(request):
 					messages.error(request, 'Vos mots de passe ne sont pas identiques')			
 			
 			utilisateur.save()
+			id_user=Utilisateur.objects.latest('id')
+			type=Utilisateur.objects.get(id=id_user.id)
+			type_user=type.type_utilisateur
 			messages.success(request, 'Compte utilisateur ajouté avec succès')
 			utilisateur = FormUser()
-			return redirect('/')
+			if type_user== TYPE_UTILISATEUR[0][0]:
+				return redirect('gestionParrainage:ajoutCentre', id_user.id)
+			elif type_user==TYPE_UTILISATEUR[1][0]:
+				return redirect('gestionParrainage:ajoutParrain', id_user.id)
+				#return redirect(request,'gestionParrainage/ajoutParrain.html', {'id_user': 'id_user'})
+				# return redirect('gestionParrainage:ajoutParrain', id_user)
 		else:
 			# Permet de verifier que le mot de passe saisi est conforme dans les deux champs de saisie
 			password1 = utilisateur.data['password']

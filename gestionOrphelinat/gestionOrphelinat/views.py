@@ -18,3 +18,4 @@ def Gallery(request):
 def Services(request):
     return render(request, 'services.html')
 #=================================================
+

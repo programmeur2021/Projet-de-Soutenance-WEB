@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from gestionUtilisateur.views import  logoutuser,home, Loginuser
 from .views import *
+app_name='gestionOrphelinat'
 urlpatterns = [
     path('connexion', Loginuser, name='connexion'),
     path('deconnexion/', logoutuser, name='deconnexion'),
@@ -31,11 +32,10 @@ urlpatterns = [
     path('services/', Services, name="services"),
     path('gallery/', Gallery, name="gallery"),
     path('contact/', Contact, name="contact"),
-    path('', PageAccueil, name="accueil"),
+    path('', PageAccueil, name="pageaccueil"),
     path('Utilisateur/', include("gestionUtilisateur.urls")),
     path('Parrainage/', include("gestionParrainage.urls")),
     path('Finance/', include("gestionFinance.urls")),
     path('Besoin/', include("gestionBesoin.urls")),
-    path('Activite/', include("gestionActivites.urls")),
     path('Activite/', include("gestionActivites.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,4 @@
 /*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
-
-
 /*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
@@ -272,7 +270,7 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
+    background-image: url("{static 'images/banner-bg.png'}");
     height: auto;
     background-size: 100%;
     padding: 10px 0px 25px 0px;
@@ -545,7 +543,7 @@ a:hover {
 .services_section {
     width: 100%;
     float: left;
-    background-image: url(../images/services-bg.png);
+    background-image: url("{ static 'images/services-bg.png'}");
     background-size: cover;
     height: auto;
     padding-bottom: 100px;
@@ -805,7 +803,7 @@ a:hover {
 .mail_section {
     width: 100%;
     float: left;
-    background-image: url(../images/img-9.png);
+    background-image: url("{% static 'images/img-9.png'}");
     height: auto;
     padding: 23px 70px;
     background-repeat: no-repeat;

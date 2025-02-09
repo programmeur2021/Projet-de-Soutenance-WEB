@@ -1,12 +1,12 @@
 
 from django.urls import path
 from .views import *
-
+app_name= 'gestionParrainage'
 urlpatterns = [
-    path("ajoutCentre/", EnregistreCentre, name = "ajoutCentre"), 
+    path("ajoutCentre/<int:id_user>", EnregistreCentre, name = "ajoutCentre"), 
     path("ajoutEnfan/", EnregistreEnfant, name = "ajoutEnfant"), 
     path("ajoutDons/", EnregistreDons, name = "ajoutDons"), 
-    path("ajoutParrain/", EnregistreParrain, name = "ajoutParrain"),
+    path("ajoutParrain/<int:id_user>", EnregistreParrain, name = "ajoutParrain"),
     path("ajoutParrainer/", EnregistreParrainer, name = "ajoutParrainer"),
     path("listecentre/", ListeCentre, name = "listecentre"), 
     path("listeEnfant/", ListeEnfant, name = "listeEnfant"),

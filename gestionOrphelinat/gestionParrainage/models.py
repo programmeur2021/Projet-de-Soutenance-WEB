@@ -1,5 +1,5 @@
 from django.db import models
-
+from gestionUtilisateur.models import Utilisateur
 # Create your models here.
 SEXE = (('Sélectionner', 'Sélectionner un sexe'),('Masculin', 'Masculin'), ('Feminin', 'Feminin'))
 STATUT_ENFANT = (('Sélectionner', 'Sélectionner un statut'),('Orphelin de Père', 'Orphelin de Père'), ('Orphelin de Mère', 'Orphelin de Mère'), ('Adopté', 'Adopté'), ('Orphelin Père/Mère', 'Orphelin Père/Mère'))
@@ -15,7 +15,11 @@ class Centre_Orphelinat(models.Model):
     responsable = models.CharField(max_length=55, blank=True)
     date_creation = models.DateField()
     capacite = models.IntegerField()
+    id_utilisateur = models.OneToOneField(Utilisateur, on_delete = models.CASCADE)
     
+    @property
+    def utilisateur(self):
+        return '{}'.format(self.id_utilisateur)
     def __str__(self):
      return '{} {} {}'.format(self.raison_sociale, self.contact1, self.email)
 
@@ -25,7 +29,11 @@ class Parrain(models.Model):
     adresse_par = models.CharField(max_length=55)
     contact_par = models.CharField(max_length=35)
     email_par = models.EmailField()
+    id_utilisateur = models.OneToOneField(Utilisateur, on_delete = models.CASCADE)
     
+    @property
+    def utilisateur(self):
+        return '{}'.format(self.id_utilisateur)
     def __str__(self):
         return '{} {} {}'.format(self.nom_par, self.contact_par, self.email_par)
 #==============================Orphelin====================================================

@@ -11,7 +11,7 @@ from datetime import datetime as d
 #=========================Gestion des Centres =========================
 
 #*****************************Enregistrer un Centre **********************
-def EnregistreCentre(request):
+def EnregistreCentre(request,id_user):
     if request.method == "POST":
         form = FormCentre(request.POST)
         if form.is_valid() :
@@ -25,10 +25,14 @@ def EnregistreCentre(request):
             centre.responsable = request.POST["responsable"]
             centre.date_creation = request.POST["date_creation"]
             centre.capacite = request.POST["capacite"]
+            code_user = Utilisateur.objects.get(id=id_user)
+            centre.id_utilisateur=code_user
             centre.save()
+            
             #form.save()
             messages.success(request, "Le Centre à été ajouté avec succès")
             form = FormCentre()
+            return redirect('/gestionOrphelinat.connexion')
         else :
             messages.warning(request, "Veuillez saisir les données valides")
     
@@ -282,7 +286,7 @@ def RechercherDon(request):
 
 #**********************Enregistrer un Parrain**************************************
 
-def EnregistreParrain(request):
+def EnregistreParrain(request,id_user):
     if request.method == "POST":
         form = FormParrain(request.POST)
         if form.is_valid() :
@@ -291,6 +295,8 @@ def EnregistreParrain(request):
             parrain.adresse_par = request.POST["adresse_par"]
             parrain.contact_par = request.POST["contact_par"]
             parrain.email_par = request.POST["email_par"]
+            code_user = Utilisateur.objects.get(id=id_user)
+            parrain.id_utilisateur = code_user
             parrain.save()
             messages.success(request, "Le Parrain à été ajouté avec succès")
             form = FormParrain()

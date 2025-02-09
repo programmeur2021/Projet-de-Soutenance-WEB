@@ -1,10 +1,10 @@
 # Creation du formulaire d'ajout des utilisateurs
 from django import forms
-from .models import Utilisateur
+from .models import TYPE_UTILISATEUR, Utilisateur
 class FormUser(forms.ModelForm):
 	class Meta:
 		model = Utilisateur
-		fields = ('username', 'email', 'password', 'confirmation_password', 'first_name', 'last_name', 'photo_utilisateur')
+		fields = ('username', 'email', 'password', 'confirmation_password', 'first_name', 'last_name', 'photo_utilisateur','type_utilisateur')
 		labels = {
 			'username': 'Nom utilisateur',
 			'email': 'Email/Adresse electronique',
@@ -12,7 +12,8 @@ class FormUser(forms.ModelForm):
 			'confirmation_password': 'Confirmation',
 			'first_name': 'Prénom utilisateur',
 			'last_name': 'Nom utilisateur',
-			'photo_utilisateur': 'Photo profil'
+			'photo_utilisateur': 'Photo profil',
+			'type_utilisateur': 'type_utilisateur'
                 }
 		widgets = {
 			'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom utilisateur', 'title': 'Saisissez le nom de l\'utilisateur'}),
@@ -21,14 +22,15 @@ class FormUser(forms.ModelForm):
 			'confirmation_password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmer le mot de passe', 'title': 'Saisissez votre mot de passe à nouveau'}),
 			'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Prénom(s)', 'title': 'Saisissez votre prénom(s)'}),
 			'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom famille', 'title': 'Saisissez votre nom de famille'}),
-			'photo_utilisateur': forms.FileInput(attrs={'class': 'form-control', 'title': 'Importer la photo de profil de l\'utilisateur', 'accept': 'image/png'})
+			'photo_utilisateur': forms.FileInput(attrs={'class': 'form-control', 'title': 'Importer la photo de profil de l\'utilisateur', 'accept': 'image/png'}),
+			'type_utilisateur' : forms.Select(attrs={'placeholder': 'type_user', 'title': 'choisissez le type'},choices=TYPE_UTILISATEUR)
             }
 
 	def __init__(self, *args, **kwargs):
 		super(FormUser, self).__init__(*args, **kwargs)
 		self.fields['first_name'].required = False
 		self.fields['last_name'].required = False
-
+		self.fields['type_utilisateur'].empty_label = "Selectionner"
 		
 # Gestion du formulaire d'authentification
 class FormAuthentification(forms.ModelForm):
@@ -37,11 +39,11 @@ class FormAuthentification(forms.ModelForm):
 		fields = ('username', 'password')
 		labels = {
 			'username': 'Nom utilisateur',
-			'password': 'Mot de passe'
+			'password': 'Mot de passe',
                 }
 		widgets = {
 			'username': forms.TextInput(attrs={'placeholder': 'Nom utilisateur', 'title': 'Saisissez le nom d\'utilisateur'}),
-			'password': forms.PasswordInput(attrs={'placeholder': 'Mot de passe', 'title': 'Saisissez le mot de passe'})
+			'password': forms.PasswordInput(attrs={'placeholder': 'Mot de passe', 'title': 'Saisissez le mot de passe'}),
                 }
 
 	def __init__(self, *args, **kwargs):
